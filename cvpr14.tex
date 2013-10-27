@@ -29,7 +29,7 @@ recognition\vspace{-.2cm}\\}
 
 \begin{abstract}
 \mbox{}\vspace{-.6cm}\\
-Abstract here
+Local video features provide state-of-the-art performance for action recognition. While the accuracy of action recognition has been continuously improved over the recent years, the low speed of feature extraction and subsequent recognition prevents current methods from scaling up to real-size problems. We address this issue and first develop highly efficient video features using motion information in video compression. We next explore feature encoding by Fisher vectors and demonstrate accurate action recognition using fast linear classifiers. In particular, we increase the speed of Fisher vector encoding and drastically reduce its size using dimensionality reduction. Our method improves the speed of video feature extraction, feature encoding and action classification by two orders of magnitude at the cost of minor reduction in recognition accuracy. We validate our approach and compare it to the state of the art on three recent action recognition datasets.
 \end{abstract}
 
 \mbox{}\vspace{-1.3cm}\\
@@ -206,6 +206,101 @@ descriptors from very sparse motion measurements.
 Our motion descriptors summarize cuboid video volumes, the
 detailed layout is described below.
 
+\begin{figure*}[t!]
+\begin{center}
+\hspace*{-.3cm}
+\begin{tabular}{p{.45\textwidth}p{.5\textwidth}p{.05\textwidth}}
+\mbox{}\vspace{-2.5cm}\newline
+\hspace*{1cm}{\small Sample frame from MPI Sintel dataset~\cite{Butler12}}\vspace{.07cm}\newline
+%\includegraphics[trim=2cm 0cm 3cm 0cm, clip=true, width=.85\linewidth]{figures/flow/bandage_1_frame_0010.jpg}$\,\,$
+\includegraphics[trim=2cm 0cm 3cm 0cm, clip=true, width=.95\linewidth]{figures/flow/bandage_1_frame_0020.jpeg}$\,\,$
+&
+\hspace*{-.9cm}
+\begin{tabular}{cc}
+\small Quantized ground truth flow & \small Quantized MPEG flow, err=$0.283$\\
+%\includegraphics[width=.4\linewidth]{figures/flow/flow_bandage_1_frame011_orig_quant.jpeg} \vspace{.05cm}&
+\includegraphics[width=.45\linewidth]{figures/flow/flow_bandage_1_frame021_orig_quant.jpeg} \vspace{.05cm}&
+%\includegraphics[width=.4\linewidth]{figures/flow/flow_bandage_1_frame011_mpeg_quant.png}  \vspace{.05cm}\\
+\includegraphics[width=.45\linewidth]{figures/flow/flow_bandage_1_frame021_mpeg_quant.png}  \vspace{.05cm}\\
+\small Quant. LK flow, err=$0.334$ & \small Quant. Farneb\"ack flow, err=$0.286$ \\
+%\includegraphics[width=.4\linewidth]{figures/flow/flow_bandage_1_frame011_stip_quant.png}  \vspace{.05cm}&
+\includegraphics[width=.45\linewidth]{figures/flow/flow_bandage_1_frame021_stip_quant.png}  \vspace{.05cm}&
+%\includegraphics[width=.4\linewidth]{figures/flow/flow_bandage_1_frame011_traj_quant.jpeg} \vspace{.1cm}\\
+\includegraphics[width=.45\linewidth]{figures/flow/flow_bandage_1_frame021_traj_quant.png} \vspace{.1cm}\\
+\end{tabular}
+&
+\mbox{}\vspace{1cm}\newline
+\hspace*{-1.1cm}
+\includegraphics[width=1\linewidth]{figures/flow/flowcolorcode_reoriented.jpg}\vspace{.05cm}
+\end{tabular}
+\caption{Comparison of optical flow estimation for a synthetic video sequence ``bandage\_1'' from MPI Sintel dataset~\cite{Butler12}. On the right we compare the ground truth flow with the flow obtained from DivX video compression (MPEG flow) as well as optical flow estimated with Lukas-Kanade~\cite{Lucas81} and Farneb\"ack~\cite{Farneback03} methods. The direction of flow vectors is quantized into eight equally distributed orientations and is color-coded according to the color-wheel on the bottom-right. White color represents no motion. The error of the flow is obtained by the ratio of incorrectly quantized flow values when compared to the ground truth and evaluated over the whole video. While the resolution of MPEG flow is lower compared to other methods, the accuracy of all three methods is comparable both quantitatively and qualitatively.
+%Left, top-to-bottom: ground truth flow; motion vectors from MPEG4 video compression; Lukas-Kanade flow (EPE)~\cite{Lucas81} and Farneb\"ack flow~\cite{Farneback03}. The accuracy of MPEG4, LK and Farneb\"ack motion fields are evaluated using endpoint error~\cite{Otte94}. Right: motion estimates quantized into eight orientation bins and one ``no-motion'' bin. Error indicates the mean disagreement of quantization between ground truth flow and the three flow estimates. Note that the EPE and the quantization error of MPEG4 flow are comparable to the errors of optical flow algorithms. The flow is color-coded according to the color-wheel on the top-right.
+}
+\mbox{}\vspace{-.6cm}\\
+\label{fig:flow1}
+\end{center}
+\end{figure*}
+
+
+\begin{figure*}[t!]
+\begin{center}
+\hspace*{-.2cm}
+\begin{tabular}{cccc}
+\small Original movie frame & \small Quantized MPEG flow & \small Quantized LK flow & \small Quantized Farneb\"ack flow \\
+\includegraphics[width=.23\textwidth]{figures/flow/actioncliptrain00009_0010bright.jpg} &
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptrain00009_frame010_mpeg_quant.png} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptrain00009_frame010_stip_quant.png} &
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptrain00009_frame010_traj_quant.jpeg}\\
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00686_frame010.jpeg} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00686_frame010_mv_quant.png} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00686_frame010_stip_quant.png} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00686_frame010_traj_quant.jpeg} \\
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00538_frame014.jpeg} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00538_frame014_mv_quant.png} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00538_frame014_stip_quant.png} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00538_frame014_traj_quant.jpeg} \\
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00870_frame013.jpeg} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00870_frame014_mv_quant.png} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00870_frame013_stip_quant.png} & 
+\includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00870_frame013_traj_quant.jpeg} \vspace{.2cm}\\
+\end{tabular}
+\caption{Qualitative comparison of optical flow in real movie frames using flow estimation methods in Figure~\ref{fig:flow1}. All methods produce noisy flow estimates. Quantized values of MPEG flow are consistent with the quantized output two optical flow algorithms. We compare quantized flow values since these are used in descriptor computation by our and other methods.\vspace{-.6cm}}
+\label{fig:flow2}
+\end{center}
+\end{figure*}
+
+\begin{figure*}[!t]
+\begin{center}
+\vspace{-0cm}
+%\begin{tabular}{cccccc}
+%\includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class1.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class2.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class3.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class4.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class5.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class6.pdf} \\
+%\includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class1.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class2.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class3.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class4.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class5.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class6.pdf} \\
+%\includegraphics[height=1cm]{figures/dataset_thumb/hwd/class1.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class2.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class3.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class4.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class5.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class6.jpg} \\
+\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class1.jpg} 
+\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class2.jpg} 
+\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class3.jpg}  
+\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class4.jpg}
+\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class5.jpg}
+\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class6.jpg} \\
+\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class1.pdf}
+\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class2.pdf}
+\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class3.pdf} 
+\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class4.pdf} 
+\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class5.pdf} 
+\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class6.pdf} \\
+\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class1.pdf} 
+\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class2.pdf} 
+\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class3.pdf} 
+\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class4.pdf} 
+\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class5.pdf} 
+\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class6.pdf} \\
+%\end{tabular}
+\smallskip
+\caption{Sample frames from action recognition datasets. Top: Hollywood-2~\cite{Marszalek09}, Middle: UCF50~\cite{Reddy12}, Bottom: UT-Interaction~\cite{Ryoo10}.\vspace{-.5cm}}
+\label{fig:datasets}
+\end{center}
+\end{figure*}
+
 \subsection{Descriptor design}
 
 \begin{figure}
@@ -257,27 +352,27 @@ Discussion of V*/V0.
 \label{sec:quantization}
 Overview of encoding methods.
 
-%The purpose of descriptor encoding is to transform collections of local image or video descriptors $\left\{\textbf{x}_i\dots\textbf{x}_N\right\}$ into fixed-size vector representations.
-%In this paper we investigate two descriptor encoding schemes and propose their computational improvements as described below.
+The purpose of descriptor encoding is to transform collections of local image or video descriptors $\left\{\textbf{x}_i\dots\textbf{x}_N\right\}$ into fixed-size vector representations.
+In this paper we investigate two descriptor encoding schemes and propose their computational improvements as described below.
 
-%\subsection{Histogram encoding}
-%\label{subsec:histenc}
-%Histogram encoding is a common method for representing video by local descriptors. First, for each descriptor type (HOG, HOF, MBHx, MBHy) a vocabulary of $K$ visual words is constructed using the K-means algorithm. Then each descriptor is assigned to one of the visual words. Then the visual word indices are accumulated in a histogram. We follow~\cite{Laptev08} and use ``space-time pyramid'' which allows to capture the rough spatial and temporal layout of action elements. We split videos into six space-temporal grids ($x\times y \times t$: 1x1x1, 2x2x1, 1x3x1, 1x1x2, 2x2x2, 1x3x2x, in total 24 cells). In total we have $C=96\text{ channels} = 4 \text{ descriptor types}\times 24\text{ cells}$, that is one channel per a pair of descriptor type and grid cell. Each cell accumulates its own histogram which is then $l_1$-normalized, thus the total histogram representation size is $C\cdot K$. We also employ space-time pyramids for the Fisher vector and VLAD encoding methods.
-%
-%For assignment we experimented with using brute-force nearest neighbors and with using the kd-trees from the FLANN library. The motivation for using kd-trees is the significant improvement in processing speed over the brute-force algorithm (see Subsection~\ref{subsec:descencimprov}). The main parameters for the kd-trees method are the number of trees and the number of tests  made during the descent over the trees. 
-%
-%\subsection{Fisher vector}
-%Fisher vector has been reported to consistently improve the performance for the image classification and image retrieval tasks~\cite{Jegou12}. Another advantage over the histogram encoding is that Fisher vectors allow the linear kernel classification. Fisher vector encoding assumes that descriptors are generated by a GMM model with diagonal covariance matrices. Similarly to histogram encoding, the GMM model of $K$ Gaussians is first learned on the training set. 
-%Once the model $\left(\boldsymbol\mu_k, \boldsymbol\sigma_k\right)$ is learned, the Fisher vector representation of the descriptors $\left\{\textbf{x}_1\dots \textbf{x}_N\right\}$ is given by the two parts \cite{Perronnin10}:
-%$${\textbf u}_k = \frac{1}{N\sqrt{\pi_k}}\sum_{i=1}^{N}q_{ki}\left(\frac{\textbf{x}_i-\boldsymbol\mu_k}{\boldsymbol\sigma_k}\right)$$
-%
-%\begin{equation}
-%\label{eq:fv_vk}
-%\textbf{v}_k=\frac{1}{N\sqrt{2\pi_k}}\sum_{i=1}^{N}q_{ki}\left[\left(\frac{\textbf{x}_i-\boldsymbol\mu_k}{\boldsymbol\sigma_k}\right)^2-\textbf{1}\right]
-%\end{equation}
-%where $q_{ki}$ is the Gaussian soft assignment of the descriptor $\textbf{x}_i$ to the $k$-th Gaussian, $\pi_k$ are the mixture weights, division and square are term-by-term operations. The \textbf{u} part captures the first-order differences, the \textbf{v} part captures the second-order differences. The final representation of size $C\cdot 2DK$ is given by concatenation of the two parts. As suggested by \cite{Perronnin10}, at the end we take signed square root and $l_2$-normalize the result. We apply the same normalization scheme to VLAD.
-%\subsection{VLAD}
-%The VLAD encoding is the simplified version of Fisher vector which considers only the first-order differences and assigns descriptors to a single mixture component. It was also shown to out-perform pure histogram encoding \cite{Jegou12}. In our variant we keep the soft-assignment factor $q_{ki}$. The VLAD representation of size $C\cdot DK$ is then given by concatenating:$$\textbf{u}_k=\sum_{i : NN\left(\textbf{x}_i\right)=\boldsymbol\mu_k}q_{ki}\left(\textbf{x}_i -\boldsymbol\mu_k\right)$$
+\subsection{Histogram encoding}
+\label{subsec:histenc}
+Histogram encoding is a common method for representing video by local descriptors. First, for each descriptor type (HOG, HOF, MBHx, MBHy) a vocabulary of $K$ visual words is constructed using the K-means algorithm. Then each descriptor is assigned to one of the visual words. Then the visual word indices are accumulated in a histogram. We follow~\cite{Laptev08} and use ``space-time pyramid'' which allows to capture the rough spatial and temporal layout of action elements. We split videos into six space-temporal grids ($x\times y \times t$: 1x1x1, 2x2x1, 1x3x1, 1x1x2, 2x2x2, 1x3x2x, in total 24 cells). In total we have $C=96\text{ channels} = 4 \text{ descriptor types}\times 24\text{ cells}$, that is one channel per a pair of descriptor type and grid cell. Each cell accumulates its own histogram which is then $l_1$-normalized, thus the total histogram representation size is $C\cdot K$. We also employ space-time pyramids for the Fisher vector and VLAD encoding methods.
+
+For assignment we experimented with using brute-force nearest neighbors and with using the kd-trees from the FLANN library. The motivation for using kd-trees is the significant improvement in processing speed over the brute-force algorithm (see Subsection~\ref{subsec:descencimprov}). The main parameters for the kd-trees method are the number of trees and the number of tests  made during the descent over the trees. 
+
+\subsection{Fisher vector}
+Fisher vector has been reported to consistently improve the performance for the image classification and image retrieval tasks~\cite{Jegou12}. Another advantage over the histogram encoding is that Fisher vectors allow the linear kernel classification. Fisher vector encoding assumes that descriptors are generated by a GMM model with diagonal covariance matrices. Similarly to histogram encoding, the GMM model of $K$ Gaussians is first learned on the training set. 
+Once the model $\left(\boldsymbol\mu_k, \boldsymbol\sigma_k\right)$ is learned, the Fisher vector representation of the descriptors $\left\{\textbf{x}_1\dots \textbf{x}_N\right\}$ is given by the two parts \cite{Perronnin10}:
+$${\textbf u}_k = \frac{1}{N\sqrt{\pi_k}}\sum_{i=1}^{N}q_{ki}\left(\frac{\textbf{x}_i-\boldsymbol\mu_k}{\boldsymbol\sigma_k}\right)$$
+
+\begin{equation}
+\label{eq:fv_vk}
+\textbf{v}_k=\frac{1}{N\sqrt{2\pi_k}}\sum_{i=1}^{N}q_{ki}\left[\left(\frac{\textbf{x}_i-\boldsymbol\mu_k}{\boldsymbol\sigma_k}\right)^2-\textbf{1}\right]
+\end{equation}
+where $q_{ki}$ is the Gaussian soft assignment of the descriptor $\textbf{x}_i$ to the $k$-th Gaussian, $\pi_k$ are the mixture weights, division and square are term-by-term operations. The \textbf{u} part captures the first-order differences, the \textbf{v} part captures the second-order differences. The final representation of size $C\cdot 2DK$ is given by concatenation of the two parts. As suggested by \cite{Perronnin10}, at the end we take signed square root and $l_2$-normalize the result. We apply the same normalization scheme to VLAD.
+\subsection{VLAD}
+The VLAD encoding is the simplified version of Fisher vector which considers only the first-order differences and assigns descriptors to a single mixture component. It was also shown to out-perform pure histogram encoding \cite{Jegou12}. In our variant we keep the soft-assignment factor $q_{ki}$. The VLAD representation of size $C\cdot DK$ is then given by concatenating:$$\textbf{u}_k=\sum_{i : NN\left(\textbf{x}_i\right)=\boldsymbol\mu_k}q_{ki}\left(\textbf{x}_i -\boldsymbol\mu_k\right)$$
 
 
 
