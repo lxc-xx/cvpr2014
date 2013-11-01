@@ -326,23 +326,28 @@ from each cell of the $2\times2\times3$ descriptor grid followed
 by $l_2$-normalization of every temporal slice. HOG descriptors
 are computed at the same set of points.
 
-The temporal stride is fixed to 5 frames, while the spatial scale and sampling pattern are subject to tweaking in Subsection~\ref{subsec:sparse_opt_flow} and Subsection~\ref{subsec:sparse_mv_flow}. 
+%The above scheme defines a $32\times32\times15$ pixel descriptor which we compute at every location of the video defined by the spatial stride of $16$ pixels and temporal stride of $5$ frames. To sample multiple spatial scales, we similarly define a $48\times48\times15$ pixel descriptor sampled with $24$ pixels spatial stride. For a video of $640\times480$ pixels spatial resolution we obtain around 300 descriptors per frame. This is comparable to $\approx350$ dense trajectory features produced by the method in~\cite{Wang12} for the same video resolution.
+
+The temporal stride is fixed to 5 frames, while the spatial scale and sampling pattern are subject to tweaking in Subsection~\ref{subsec:sparse_opt_flow} and Subsection~\ref{subsec:sparse_mv_flow}.
 
 \subsection{Features from sparse flow}
 \label{subsec:sparse_opt_flow}
-Optical flow occupies a large portion of time in
-descriptor computation. In order to achieve faster than
-real-time
-performance we evaluate a natural speed-up - estimating optical
-flow
-at a smaller point set.
+Optical flow occupies such a large portion of time in descriptor computation (52\% in the state-of-the art system~\cite{Wang12}) because it is computed at dense locations. In order to achieve speed-up We investigate how density of computed motion vectors affects recognition accuracy.
+
+{\Large \color{red} TODO}
 
 \subsection{Efficient features from compressed video}
 \label{subsec:sparse_mv_flow}
+Consequent video frames are highly redundant with most of the changes between frames typically originating from the object or camera motion. As the storage of sparse motion vectors is much more efficient compared the storage of pixel values, video compression schemes heavily rely on motion estimation and encode coarse motion information in compressed video representations such as MPEG. This motion field can be accessed at the time of video decompression without additional cost\footnote{Full video decompression may not be required.}.
+
+Motion estimation by video encoders is designed to optimize video compression size and may not necessarily correspond to the true motion in the video. To verify the quality of the motion field obtained from video compression (here called MPEG flow), we compare it with the ground truth flow as well as with the output of optical flow methods by Lucas and Kanade~\cite{Lucas81} and Farneb\"ack~\cite{Farneback03}. We choose these two methods since they are deployed in existing implementations of local motion descriptors~\cite{Laptev08} and~\cite{Wang12} which we use in this work for comparison. Figure~\ref{fig:flow1} illustrates the ground truth flow and automatic flow estimates obtained for a synthetic video sequence from the recent MPI Sintel dataset~\cite{Butler12}. We measure the error of flow estimation by the proportion of incorrect flow vectors when compared to the ground truth. For this experiment we quantize flow fields into eight orientation values and one ``no-motion'' bin\footnote{``No-motion'' bin represents motion vectors with the magnitude below $0.4$ pixels.} since this representation of flow is used in this paper for the construction of our fast video descriptor.
+
+Motion field obtained from MPEG flow has lower resolution compared to other methods. 
+%Meanwhile, we can observe a rather high level of noise for all three flow estimates.
+Meanwhile, the quantitative error of MPEG flow is comparable to the errors of two other OF methods. Qualitatively, the level of noise in MPEG flow and optical flow estimates is comparable both for synthetic and real video examples in Figure~\ref{fig:flow2}. This indicates that the substitute of the slow optical flow used in video descriptors~\cite{Laptev08,Wang12} by the ``virtually free'' MPEG flow may not have large implications on the performance of subsequent recognition steps.
+
 Motion vectors + figure... Evaluation on BOF/histograms on
 UCF50/HMDB/HWD/UTI. Codecs, channels. Breakdown.
-
-%The above scheme defines a $32\times32\times15$ pixel descriptor which we compute at every location of the video defined by the spatial stride of $16$ pixels and temporal stride of $5$ frames. To sample multiple spatial scales, we similarly define a $48\times48\times15$ pixel descriptor sampled with $24$ pixels spatial stride. For a video of $640\times480$ pixels spatial resolution we obtain around 300 descriptors per frame. This is comparable to $\approx350$ dense trajectory features produced by the method in~\cite{Wang12} for the same video resolution.
 
 \subsection{Role of trajectories}
 Discussion of V*/V0.
@@ -426,7 +431,7 @@ HOF+MBHx+MBHy+HOG & 56.2\% & 60.0\% & 168.4 & 1.2 \\\hline
 %\end{table}
 \end{tabular}
 \mbox{}\vspace{.1cm}\\
-\caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ evaluated on a single core Intel Xeon E5345 2.33Hz processor.
+\caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ evaluated on a single core Intel Xeon E5345 2.33GHz processor.
 {\bf Right:} Evaluation of action recognition accuracy in Hollywood2 under the variation of video compression in terms of video codecs and compression bit-rates. The results are reported for CD descriptors in combination with histogram encoding.
 \vspace{-.4cm}}
 \label{tab:HWD2}
@@ -577,6 +582,28 @@ DT \cite{Wang12}& 85.6\% & 2.8            	        & 5.1  	& 1.8\\\hline%  Feat 
 \smallskip
 \caption{Comparison of our method to the state of the art on the UCF50 dataset~\cite{Reddy12}. The speed is reported for videos with the spatial resolution $320\times 240$ pixels.}
 \label{tab:ucf_comparison}
+\mbox{}\vspace{-1cm}\\
+\end{center}
+\end{table}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+% for KnifeThrowingJackDaggerDemoReel_throw_f_nm_np1_fr_med_2.avi (410 frames, 360x240)
+		 				&  	 		& Feat.                    & Quant. 	& Total	\\
+		 				& Acc.		& (fps)                    & (fps) 	& (fps)	\\\hline
+CD ALL FV(32)		& 46.7\% 	& 455.6                    & 129.7 	& 101.0	\\ % FPS = 410 / 0.9 = 455.5556, 410 / 3.16 = 129.7468, 1 / (1/455.5556 + 1/129.7468) =   101.0
+CD MBH FV(32)		& 45.4\% 	& 455.6                    & 268.0 	& 168.7	\\ % FPS = 410 / 0.9 = 455.5556, 410 / 3.16 = 129.7468, 1 / (1/455.5556 + 1/267.9739) =   101.0; 410 / 1.53 = 267.9739, 1 / (1/455.5556 + 1/267.9739) =   168.7243
+\hline
+MBH \cite{Feng13}		& 41.1\% 	& 33.9            	     	& 267.1 & 30.8	\\ % FPS = 1/(1/41.19 + 1/192.4) = 33.9268
+HOG3D \cite{Feng13}	& 33.3\% 	& 49.6            	   	& 290.8 & 42.2	\\ % FPS = 1/(1/71.88 + 1/159.60)= 49.5596
+Combined \cite{Feng13} & 47.6\% & 									&			&			\\
+DT	\cite{Wang12}			& 48.3\%& 3.1								&			& \\ % FPS = 410 / 133.26 = 3.0767
+\end{tabular}
+\smallskip
+\caption{Comparison of our method to \cite{Feng13} on the HMDB dataset~\cite{Kuehne11}. The speed is reported for videos with the spatial resolution $360\times 240$ pixels on a single core Intel Xeon E5345 2.33GHz processor, which is 1 Ghz smaller than \cite{Feng13}}
+\label{tab:hmdb_comparison}
 \mbox{}\vspace{-1cm}\\
 \end{center}
 \end{table}
