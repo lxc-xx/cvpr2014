@@ -83,10 +83,7 @@ surveillance cameras installed only in the UK. According to
 Cisco\footnote{\scriptsize
 \url{http://newsroom.cisco.com/dlls/2010/prod_060210.html}},
 video is expected to dominate Internet traffic by 91\% in 2014.
-%, or a webcam network installed for public monitoring of
-Russian elections that has generated over 100 years of video
-just in one
-day\footnote{http://www.rostelecom.ru/en/ir/news/d212878}.
+%, or a webcam network installed for public monitoring of Russian elections that has generated over 100 years of video just in one day\footnote{http://www.rostelecom.ru/en/ir/news/d212878}.
 
 The access to information in such gigantic quantities of video
 data requires accurate and efficient methods for automatic video analysis. Much work has been recently devoted to automatic videounderstanding and recognition of human actions in
@@ -165,10 +162,12 @@ and HOG descriptors sampled along dense point trajectories
 result in great performance improving accuracy of other
 methods on a number of challenging datasets~\cite{Wang12}. Most
 of the previous work, however, does not address computational
-efficiency required for larger scale problems. Random sampling
+efficiency required for larger scale problems. 
+
+Random sampling
 of dense features locations~\cite{Feng13} has been studied as
 well, it leads to feature extraction substantially faster than
-\cite{Wang12}, but several times slower than this work. We
+\cite{Wang12}, but several times slower than this work. This study is the most related to ours and we compare the results in Section~\ref{sec:experiments} We
 follow~\cite{Wang12} and design a new motion-based local
 descriptor that drastically improves the speed of previous
 methods at the cost of minor decrease in the recognition
@@ -217,6 +216,7 @@ An extensive review of methods for dimensionality reduction for
 image retrieval is given by \cite{Grauman13}.
 In this work we do not tackle the dimensionality problem of the
 Fisher vectors.
+\subsubsection*{Contributions}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -667,7 +667,8 @@ PSRM+BOST\cite{Yu10}	& 83.3\%		& 10.0 		\\\hline
 		 				&  	 		& Feat.                    & Quant. 	& Total	\\
 		 				& Acc.		& (fps)                    & (fps) 	& (fps)	\\\hline
 CD ALL FV(32)		& 46.7\% 	& 455.6                    & 129.7 	& 101.0	\\ % FPS = 410 / 0.9 = 455.5556, 410 / 3.16 = 129.7468, 1 / (1/455.5556 + 1/129.7468) =   101.0
-CD MBH FV(32)		& 45.4\% 	& 455.6                    & 268.0 	& 168.7	\\ % FPS = 410 / 0.9 = 455.5556, 410 / 3.16 = 129.7468, 1 / (1/455.5556 + 1/267.9739) =   101.0; 410 / 1.53 = 267.9739, 1 / (1/455.5556 + 1/267.9739) =   168.7243
+CD MBH FV(32)		& 45.4\% 	& 683.3                    & 268.0 	& 192.5	\\ % FPS = 410 / 0.6 = 683.3333, 410 / 1.53 = 267.9739, 1 / (1/683.3333 + 1/267.9739) =   192.4883
+CD ALL VLAD(32) & 46.3\%	& 455.6								& 455.6		& 227.8	\\ % FPS = 410 / 0.9 = 455.5556, 1 / (1/455.5556 + 1/455.5556) =   227.7778
 \hline
 MBH \cite{Feng13}		& 41.1\% 	& 33.9            	     	& 267.1 & 30.8	\\ % FPS = 1/(1/41.19 + 1/192.4) = 33.9268
 HOG3D \cite{Feng13}	& 33.3\% 	& 49.6            	   	& 290.8 & 42.2	\\ % FPS = 1/(1/71.88 + 1/159.60)= 49.5596
