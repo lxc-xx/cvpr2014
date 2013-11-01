@@ -45,7 +45,7 @@
 \begin{abstract}
 
 \mbox{}\vspace{-.6cm}\\
-Local video features provide state-of-the-art performance for action recognition. While the accuracy of action recognition has been continuously improved over the recent years, the low speed of feature extraction and subsequent recognition prevents current methods from scaling up to real-size problems. We address this issue and first develop highly efficient video features using motion information in video compression. We next explore feature encoding by Fisher vectors and demonstrate accurate action recognition using fast linear classifiers. Our method improves the speed of video feature extraction, feature encoding and action classification by two orders of magnitude at the cost of minor reduction in recognition accuracy. We validate our approach and compare it to the state of the art on three recent action recognition datasets.
+Local video features provide state-of-the-art performance for action recognition. While the accuracy of action recognition has been continuously improved over the recent years, the low speed of feature extraction and subsequent recognition prevents current methods from scaling up to real-size problems. We address this issue and first develop highly efficient video features using motion information in video compression. We next explore feature encoding by Fisher vectors and demonstrate accurate action recognition using fast linear classifiers. Our method improves the speed of video feature extraction, feature encoding and action classification by two orders of magnitude at the cost of minor reduction in recognition accuracy. We validate our approach and compare it to the state of the art on four recent action recognition datasets.
 
 \end{abstract}
 
@@ -94,7 +94,7 @@ to the low speed of video processing, often ranging in the order of 1-2 frames p
 the needs of large-scale video indexing and retrieval in modern
 video archives. Fast video recognition is also required by
 client applications, e.g., for automatic on-the-fly video
-moderation and video editing. Compact video representations
+moderation and video editing. Efficient video representations
 enabling fast event recognition will also foster solutions to
 new problems such as automatic clustering of very large video
 collections.
@@ -109,7 +109,7 @@ using motion-based HOF~\cite{Laptev08} and MBH~\cite{Wang12}
 local descriptors. Motion estimation at dense grid, however, is
 a time-consuming process that
 limits the speed of feature extraction.
-In this work we eventually avoid motion estimation and design
+In this work we avoid motion estimation and design
 fast
 descriptors using motion information from video compression.
 In contrast to the dense optical flow (OF), video compression
@@ -152,26 +152,27 @@ popularity due to their simplicity, wide range of application
 and high recognition accuracy.
 BOF methods represent actions by collections of local space-timedescriptors aggregated over the video.
 Several alternative local descriptors have been proposed
-including histograms of flow orientations (HOF)~\cite{Laptev08},histograms of 3D gradients
+including histograms of flow orientations (HOF)~\cite{Laptev08},
+histograms of 3D gradients
 (HOG3D)~\cite{klaser2008spatio,Scovanner07}, motion boundary
 histograms (MBH)~\cite{Dalal06,Wang12}, shapes of point
-trajectories~\cite{Matikainen09,Messing09,Wang12}, local trinary patterns~\cite{Kliper12,Yeffet09} and others. Intermediate-levelfeatures such as action attributes~\cite{Liu11} and action
+trajectories~\cite{Matikainen09,Messing09,Wang12}, local trinary patterns~\cite{Kliper12,Yeffet09} and others. 
+Mid-level features such as action attributes~\cite{Liu11} and action
 bank~\cite{Sadanand12} have also been explored. Recent
 comprehensive evaluation~\cite{Wang12} suggests that MBH, HOF
 and HOG descriptors sampled along dense point trajectories
 result in great performance improving accuracy of other
-methods on a number of challenging datasets~\cite{Wang12}. Most
-of the previous work, however, does not address computational
-efficiency required for larger scale problems. 
-
-Random sampling
-of dense features locations~\cite{Feng13} has been studied as
-well, it leads to feature extraction substantially faster than
-\cite{Wang12}, but several times slower than this work. This study is the most related to ours and we compare the results in Section~\ref{sec:experiments} We
-follow~\cite{Wang12} and design a new motion-based local
+methods on a number of challenging datasets~\cite{Wang12}. 
+We follow~\cite{Wang12} and design a new motion-based local
 descriptor that drastically improves the speed of previous
 methods at the cost of minor decrease in the recognition
 accuracy.
+
+%sampling of feature   required for larger scale problems. Random sampling
+%of dense features locations~\cite{Feng13} has been studied as
+%well, it leads to feature extraction substantially faster than
+%\cite{Wang12}, but several times slower than this work. 
+
 
 Efficient action recognition has been addressed by several
 methods. The work~\cite{mpeg3,mpeg2,mpeg1} is particularly
@@ -190,6 +191,13 @@ et~al.~\cite{Yu10} have proposed another pixel-based local
 descriptor for efficient action recognition. We quantitatively
 compare our method with~\cite{Yu10} and show improvements in
 both the speed and accuracy.
+Closely related to our work, \cite{Feng13} has 
+recently improved the speed of local feature extraction in video
+by random feature sampling.
+We experimentally compare our method to~\cite{Feng13}
+and show one order of magnitude improvement in speed while 
+also demontrating improved accuracy.
+
 
 Alternative schemes for feature encoding
 %, i.e.~aggregation of local descriptors into global
@@ -208,14 +216,15 @@ FV encoding enables high recognition accuracy using fast linear
 classifiers which is a big advantage for large-scale video
 recognition. The dimension of FV, however, is very large (about
 $2.5\cdot10^6$ in our implementation) and implies high
-requirements on the memory. Compression of FV and other types of encodings has been studied for instance-level image
+requirements on the memory. Compression of FV and other types of 
+encodings has been studied for instance-level image
 search~\cite{Jegou12}. The dimensionality reduction of FV has
 also been recently addressed for large-scale image
 classification problems~\cite{Mensink12,Perronnin12,Sanchez13}.
 An extensive review of methods for dimensionality reduction for
 image retrieval is given by \cite{Grauman13}.
-In this work we do not tackle the dimensionality problem of the
-Fisher vectors.
+In this work we use Fisher Vector encoding and linear SVM 
+providing efficient action classification.
 \subsubsection*{Contributions}
 
 
