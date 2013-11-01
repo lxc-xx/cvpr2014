@@ -29,7 +29,7 @@
 %%%%%%%%% TITLE
 
 %\title{\mbox{}\vspace{-1cm}\\Highly-efficient video features for action recognition and counting}
-\title{\mbox{}\vspace{-1cm}\\Towards efficient feature extraction, encoding and classification\\ for action recognition\vspace{-.2cm}\\}
+\title{\mbox{}\vspace{-1cm}\\Efficient feature extraction, encoding and classification\\ for action recognition\vspace{-.2cm}\\}
 
 \author{Vadim Kantorov\qquad Ivan Laptev\\INRIA - WILLOW / Dept. of Computer Science, Ecole Normale Supérieure}
 % For a paper whose authors are all at the same institution,
@@ -474,7 +474,7 @@ HOF+MBHx+MBHy+HOG & 56.2\% & 60.0\% & 168.4 & 1.2 \\\hline
 %\end{table}
 \end{tabular}
 \mbox{}\vspace{.1cm}\\
-\caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ evaluated on a single core Intel Xeon E5345 2.33 GHz processor.
+\caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ pixels.
 {\bf Right:} Evaluation of action recognition accuracy in Hollywood2 under the variation of video compression in terms of video codecs and compression bit-rates. The results are reported for CD descriptors in combination with histogram encoding.
 \vspace{-.4cm}}
 \label{tab:HWD2}
@@ -483,7 +483,7 @@ HOF+MBHx+MBHy+HOG & 56.2\% & 60.0\% & 168.4 & 1.2 \\\hline
 
 %In this section we evaluate the proposed descriptor and descriptor encoding schemes on Hollywood2~\cite{Marszalek09} and UCF50~\cite{Reddy12} action recognition benchmarks and compare the speed and the recognition accuracy to the state of the art. We report classification results as mean average precision (mAP) for Hollywood2 and accuracy (Acc.) for UCF50. Processing speed is reported as frame-per-second (fps). We first evaluate the accuracy and the computational cost of proposed descriptor and compare it to the state-of-the-art method~\cite{Wang11}. The second part of the evaluation concerns the speed and accuracy of descriptor encoding.
 
-In this section we evaluate the proposed descriptor and encoding schemes on Hollywood2~\cite{Marszalek09}, UCF50~\cite{Reddy12} and UT-Interaction~\cite{Ryoo10} action recognition benchmarks (see Figure~\ref{fig:datasets}) and compare the speed and accuracy of action recognition  to the state of the art. We report classification results as mean average precision (mAP) for Hollywood2 and mean accuracy (acc) for UCF50 and UT-Interaction datasets. The processing speed is reported in frames-per-second (fps). We first evaluate the accuracy and the computational cost of the proposed descriptor and compare results with~\cite{Wang12}. We then evaluate the speed, accuracy and compression of descriptor encoding.
+In this section we evaluate the proposed descriptor and encoding schemes on Hollywood2~\cite{Marszalek09}, UCF50~\cite{Reddy12}, HMDB51~\cite{Kuehne11} and UT-Interaction~\cite{Ryoo10} action recognition benchmarks (see Figure~\ref{fig:datasets}) and compare the speed and accuracy of action recognition  to the state of the art. We report classification results as mean average precision (mAP) for Hollywood2 and mean accuracy (acc) for UCF50 and UT-Interaction datasets. The processing speed is reported in frames-per-second (fps), run at a single-core Intel Xeon E5345 (2.33 GHz). We first evaluate the accuracy and the computational cost of the proposed descriptor and compare results with~\cite{Wang12}. We then evaluate the speed, accuracy and compression of descriptor encoding.
 
 %In this series of experiments we adopt the standard bag-of-features action classification pipeline~\cite{Schuldt04} and represent each video clip by a $l_1$-normalized histogram of quantized local features. For each extracted type of descriptor we compute a vocabulary of 4000 visual words using k-means and assign all features to their nearest visual word centroids. Taking into account the space-time pyramid, we end up with $4\times24=96$ channels which we put in the SVM with multi-channel exponential $\chi^2$-kernel~\cite{Zhang07}.
 
@@ -494,7 +494,7 @@ To recognize actions we use SVM with multi-channel exponential $\chi^2$-kernel~\
 %To assess the performance of motion information in compressed video representation, we first evaluate the performance of STIP features~\cite{Laptev08} where MPEG flow was obtained from DivX compression of Hollywood2 video samples and upscaled to the original video resolution. Results for one channel HOF descriptors in this setup gives 0.432 mAP compared to 0.458 mAP obtained for the original STIP implementation using Lucas-Kanade optical flow.
 
 Table~\ref{tab:HWD2}(Left) presents results of action recognition using the proposed compressed domain (CD) features %described in Section~\ref{sec:CDdescriptor} 
-and compares performance to Dense Trajectories (DT) baseline~\cite{Wang12}. For the full combination of four descriptors the performance of DT (60.0\%) is approximately four per-cent higher compared to CD features (56.2\%). When comparing the speed of feature extraction for both methods measured on videos with $640\times480$ pixels spatial resolution, our method achieves 168fps which is about 7 times faster than real-time and 140 times faster compared to~\cite{Wang12}. The speed measurements in this experiment include the time of feature computation as well as the time for video reading and decompression. Most of the time for our method is spent on the computation of integral histograms and aggregation of histogram-based video descriptors. Reducing the number of descriptor types increases the speed of our method to 347fps (14 times real time) at the cost of 9\% drop in mAP.
+and compares performance to Dense Trajectories (DT) baseline~\cite{Wang12}. For the full combination of four descriptors the performance of DT (60.0\%) is approximately four per-cent higher compared to CD features (56.2\%). When comparing the speed of feature extraction for both methods measured on videos with $640\times480$ pixels spatial resolution, our method achieves 168fps which is about 7 times faster than real-time and 140 times faster compared to~\cite{Wang12}. The speed measurements in this experiment include the time of feature computation as well as the time for video reading and decompression. Most of the time for our method is spent on the computation of integral histograms and aggregation of histogram-based video descriptors. In order to  study time saving in detail, we contrast the execution times of our method run with parameters similar to~\cite{Wang12} and with parameters used for all other experiments in this subsection. We save 66\% by avoiding OF computation, ~4\% by sparser descriptor sampling and ~29\% by the aggregation of sparse motion vectors. The run-time of our descriptor is, hence, <1\% compared to the original one. Reducing the number of descriptor types increases the speed of our method to 347fps (14 times real time) at the cost of 9\% drop in mAP. 
 
 %We also evaluate how the codec used for encoding and video bitrate affect the classification accuracy on the Hollywood2 dataset. The results are available in Table~\ref{tab:bitrates}. One can note there is no significant difference between motion estimates of x264 and DivX 5.2.1 (both with standard profile). In addition, one can see that accuracy does not drastically decrease w.r.t. bitrate, which allows to encode video with low bitrate if action recognition is the eventual purpose. We used FLANN kd(4) + checks(32) as the quantization method for this experiment.
 
@@ -604,7 +604,7 @@ DT \cite{Wang12}& 59.9\%		& 1.2									& 5.1 		&	1.0	\\\hline % Quant. FPS = 13
 %\cite{le_at_al}						& 53.3\%		&										&				&\\\hline
 \end{tabular}
 \mbox{}\\
-\caption{Comparison of our method to the state of the art on Hollywood2 dataset. The speed of~\cite{Wang12} and of our method is reported for videos with $640\times 480$ spatial resolution using the same single core Intel Xeon E5345 2.33Hz processor.\vspace{-.3cm}}
+\caption{Comparison of our method to the state of the art on Hollywood2 dataset. The speed of~\cite{Wang12} and of our method is reported for videos with spatial resolution $640\times 480$ pixels.\vspace{-.3cm}}
 \label{tab:hwd2_comparison}
 \end{center}
 \end{table}
@@ -676,7 +676,7 @@ DT	\cite{Wang12}			& 48.3\%& 3.1								&			& \\ % FPS = 410 / 133.26 = 3.0767
 \hline
 \end{tabular}
 \smallskip
-\caption{Comparison of our method to \cite{Feng13} on the HMDB dataset~\cite{Kuehne11}. The speed is reported for videos with the spatial resolution $360\times 240$ pixels on a single core Intel Xeon E5345 2.33GHz processor, which is 1 Ghz smaller than \cite{Feng13}}
+\caption{Comparison of our method to \cite{Feng13} on the HMDB dataset~\cite{Kuehne11}. The speed is reported for videos with the spatial resolution $360\times 240$ pixels}
 \label{tab:hmdb_comparison}
 \mbox{}\vspace{-1cm}\\
 \end{center}
