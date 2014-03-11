@@ -1,5 +1,4 @@
 
-
 Information & Contact
 =====================
 
@@ -51,8 +50,8 @@ The output format:
   + "PatchWidth" and "PatchHeight" are the non-normalized width and height of teh spatio-temporal patch
   + "descr" is the array of floats of concatenated descriptors. The size of this array depends on the enabled   descriptor types. All values are from zero to one. The first comment line describes the enabled descriptor types, their order in the array, and the dimension of each descriptor in the array.  
      
-  Then every line corresponds to an extracted descriptor of a patch. All numbers in the output are floating point in text format and are separated by tabs.
-  The standard error contains various debug / diagnostic messages like time measurements and parameters in effect.
+After the comments every line corresponds to an extracted descriptor of a patch. All numbers in the output are floating point in text format and are separated by tabs.  
+The standard error contains various debug / diagnostic messages like time measurements and parameters in effect.
 
 ### Fast Fisher vector / VLAD computation using SSE2 vector CPU nstructions ("fv_fast")
 
