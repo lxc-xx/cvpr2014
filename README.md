@@ -11,10 +11,10 @@ In Proc. Computer Vision and Pattern Recognition (CVPR), IEEE, 2014
 If you use this code, please cite our work:
 
 @inproceedings{kantorov2014,
-  author = {Kantorov, V. and Laptev, I.},
-  title = {Efficient feature extraction, encoding and classification for action recognition},
-  booktitle = {Proc. Computer Vision and Pattern Recognition (CVPR), IEEE, 2014},
-  year = {2014},
+ 	author = {Kantorov, V. and Laptev, I.},
+	title = {Efficient feature extraction, encoding and classification for action recognition},
+	booktitle = {Proc. Computer Vision and Pattern Recognition (CVPR), IEEE, 2014},
+	year = {2014},
 }
 
 For any question or bug report, please contact:
