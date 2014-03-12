@@ -79,7 +79,10 @@ Option | Default | Description
 Building from source
 ====================
 
-To build a tool, navigate to the correspoding directory in **src**, make sure you have the dependencies installed and type **make**. The binaries will be placed in the **build** sub-directory.
+To build a tool, navigate to the correspoding directory in **src**, make sure you have the dependencies installed and type
+> make
+
+The binaries will be placed in the **build** sub-directory.
 
 Dependencies for **motion_descriptors**:
  - ffmpeg
