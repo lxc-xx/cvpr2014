@@ -82,6 +82,7 @@ Option | Default | Description
 ##### Examples:
   - Build GMM vocabulary:
     > $ cat descriptors.txt | ./fv_fast --buildGmmIndex
+
   - Compute Fisher vector:
     > $ cat descriptors.txt | ./fv_fast 
 
