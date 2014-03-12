@@ -23,7 +23,7 @@ Vadim Kantorov at vadim.kantorov@inria.fr or vadim.kantorov@gmail.com
 Description and usage
 =====================
 
-We release two tools in this repository. The first is a motion feature extractor based on motion vectors from video compression (**motion_descriptors**) information. The second is a fast Fisher vector computation tool (**fv_fast**) that uses vector SSE2 CPU instructions.
+We release two tools in this repository. The first is a motion feature extractor based on motion vectors from video compression **motion_descriptors** information. The second is a fast Fisher vector computation tool **fv_fast** that uses vector SSE2 CPU instructions.
 
 ### motion_descriptors
 
