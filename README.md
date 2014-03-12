@@ -13,7 +13,7 @@ If you use this code, please cite our work:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author = {Kantorov, V. and Laptev, I.},  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title = {Efficient feature extraction, encoding and classification for action recognition},  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;booktitle = {Proc. Computer Vision and Pattern Recognition (CVPR), IEEE, 2014},  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;year = {2014},  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;year = {2014}  
 }
 
 For any question or bug report, please contact:
@@ -66,6 +66,8 @@ Option | Default | Description
 --yntot 1.0 | 1.0 | specifies the frame width. If the **y** coordinate is non-normalized, this option is mandatory
 --tnpos 2 | | specifies the column with **t** coordinate of the s-t patch in the descriptor array
 --tntot 1.0 | 1.0 | specifies the frame width. If the **t** coordinate is non-normalized, this option is mandatory
+-o out.h5 | not used by default | specifies the output HDF5 file
+
 
 
 Building from source
