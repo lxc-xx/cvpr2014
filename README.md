@@ -86,7 +86,7 @@ Building from source
 ====================
 
 ### Linux
-To build a tool, make sure you have the dependencies installed and visible to the CC (normally g++) compiler. If the dependencies are installed to a custom path, you may want to adjust CPATH and LIBRARY_PATH environment variables. Then navigate to the correspoding directory in **src** and type:
+To build a tool, make sure you have the dependencies installed and visible to the CC compiler (normally g++). If the dependencies are installed to a custom path, you may want to adjust CPATH and LIBRARY_PATH environment variables. Then navigate to the correspoding directory in **src** and type:
 > $ make
 
 The binaries will be placed in the **build** sub-directory.
@@ -98,3 +98,5 @@ Dependencies for **motion_descriptors**:
 Dependencies for **fv_fast**:
  - hdf5
  - opencv
+
+### Windows
