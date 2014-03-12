@@ -66,7 +66,7 @@ Option | Default | Description
 --yntot 1.0 | 1.0 | specifies the frame width. If the **y** coordinate is non-normalized, this option is mandatory
 --tnpos 2 | | specifies the column with **t** coordinate of the s-t patch in the descriptor array
 --tntot 1.0 | 1.0 | specifies the frame width. If the **t** coordinate is non-normalized, this option is mandatory
--o out.h5 | not used by default | specifies the output HDF5 file
+-o out.h5 | | specifies the output HDF5 file
 --gmm_k 256 | 256 | specifies the number of GMM components used for FV computation
 --knn 5 | 5 | FV parts corresponding to these many closest GMM centroids will be updated during processing of every input descriptor
 --vocab 9-104 hog_K256.vocab | | specifies descriptor type location and path to GMM vocabs. This option is mandatory, and several options of this kind are allowed.
