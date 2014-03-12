@@ -55,10 +55,10 @@ The standard error contains various debug / diagnostic messages like time measur
 
 ##### Examples:
   - Compute HOG, HOF, MBH and save the descriptors in **descriptors.txt**:
-    > ./motion_descriptors -i video.avi > descriptors.txt
+    > $ ./motion_descriptors -i video.avi > descriptors.txt
 
   - Compute only HOF and MBH from the first 500 frames and save the descriptors in **descriptors.txt**:
-    > ./motion_descriptors -i video.avi -hog no -hof yes -mbh yes -f 1-500 > descriptors.txt
+    > $ ./motion_descriptors -i video.avi -hog no -hof yes -mbh yes -f 1-500 > descriptors.txt
 
 ### fv_fast
 The tool accepts descriptors on the standard input and writes Fisher vector (FV) to the standard output or a specified HDF5 file.
