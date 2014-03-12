@@ -28,15 +28,15 @@ We release two tools in this repository. The first is a motion feature extractor
 ### motion_descriptors
 
 The tool accepts a video file path as input and writes descriptors to standard output.  
-Command-line options:
+##### Command-line options:
 
 Option | Default | Description
 --- | --- | ---
--i $VIDEO_PATH | | specifies the path to the input video
+-i video.avi | | specifies the path to the input video
 --hog yes/no | **yes** | enables/disables HOG descriptor computation
 --hof yes/no | **yes** | enables/disables HOF descriptor computation
 --mbh yes/no | **yes** | enables/disables MBH descriptor computation
--f $BEGIN-$END | whole video | restricts descriptor computation to the frame range [$BEGIN, $END]
+-f 1-10 | whole video | restricts descriptor computation to the given frame range
 
 The output format:
    The first two lines of the standard output are comments explaining the format):
@@ -54,9 +54,16 @@ The output format:
 After the comments every line corresponds to an extracted descriptor of a patch. All numbers in the output are floating point in text format and are separated by tabs.  
 The standard error contains various debug / diagnostic messages like time measurements and parameters in effect.
 
+##### Examples:
+  - Compute HOG, HOF, MBH and save the descriptors in **descriptors.txt**:
+    > ./motion_descriptors -i video.avi > descriptors.txt
+
+  - Compute only HOF and MBH from the first 500 frames and save the descriptors in **descriptors.txt**:
+    > ./motion_descriptors -i video.avi -hog no -hof yes -mbh yes -f 1-500 > descriptors.txt
+
 ### fv_fast
 The tool accepts descriptors on the standard input and writes Fisher vector (FV) to the standard output or a specified HDF5 file.
-Command-line options:
+##### Command-line options:
 
 Option | Default | Description
 --- | --- | ---
