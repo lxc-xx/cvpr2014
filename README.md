@@ -55,7 +55,7 @@ After the comments every line corresponds to an extracted descriptor of a patch.
 The standard error contains various debug / diagnostic messages like time measurements and parameters in effect.
 
 ### fv_fast
-The tool accepts descriptors on the standard input and writes Fisher vector to the standard output or a specified HDF5 file.
+The tool accepts descriptors on the standard input and writes Fisher vector (FV) to the standard output or a specified HDF5 file.
 Command-line options:
 
 Option | Default | Description
@@ -67,6 +67,8 @@ Option | Default | Description
 --tnpos 2 | | specifies the column with **t** coordinate of the s-t patch in the descriptor array
 --tntot 1.0 | 1.0 | specifies the frame width. If the **t** coordinate is non-normalized, this option is mandatory
 -o out.h5 | not used by default | specifies the output HDF5 file
+--gmm_k 256 | 256 | specifies the number of GMM components used for FV computation
+--knn 5 | 5 | FV parts corresponding to these many closest GMM centroids will be updated during processing of every input descriptor
 
 
 
