@@ -54,10 +54,10 @@ After the comments every line corresponds to an extracted descriptor of a patch.
 The standard error contains various debug / diagnostic messages like time measurements and parameters in effect.
 
 ##### Examples:
-  - Compute HOG, HOF, MBH and save the descriptors in **descriptors.txt**:
+  - Compute HOG, HOF, MBH and save the descriptors in descriptors.txt:
     > $ ./motion_descriptors -i video.avi > descriptors.txt
 
-  - Compute only HOF and MBH from the first 500 frames and save the descriptors in **descriptors.txt**:
+  - Compute only HOF and MBH from the first 500 frames and save the descriptors in descriptors.txt:
     > $ ./motion_descriptors -i video.avi -hog no -hof yes -mbh yes -f 1-500 > descriptors.txt
 
 ### fv_fast
