@@ -79,8 +79,11 @@ Option | Default | Description
 --grid 1x3x2x | | specifies the layout of the s-t grid (**x** cells times **y** cells times **t** cells). This option is mandatory, and several options of this kind are allowed.
 
 
-
-
+##### Examples:
+  - Build GMM vocabulary:
+    > $ cat descriptors.txt | ./fv_fast --buildGmmIndex
+  - Compute Fisher vector:
+    > $ cat descriptors.txt | ./fv_fast 
 
 Building from source
 ====================
