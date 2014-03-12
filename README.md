@@ -16,8 +16,7 @@ If you use this code, please cite our work:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;year = {2014}  
 }
 
-For any question or bug report, please contact:
-Vadim Kantorov at vadim.kantorov@inria.fr or vadim.kantorov@gmail.com
+For any question or bug report, please contact Vadim Kantorov at vadim.kantorov@inria.fr or vadim.kantorov@gmail.com
 
 
 Description and usage
