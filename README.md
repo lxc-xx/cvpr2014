@@ -43,12 +43,12 @@ The output format:
    #x y pts StartPTS EndPTS Xoffset Yoffset PatchWidth PatchHeight descr
 
 
-  + "x" and "y" are the normalized frame coordinates of the spatio-temporal (s-t) patch  
-  + "pts" is the frame number of the s-t patch center  
-  + "StartPTS" and "EndPTS" are the frame numbers of the first and last frames of the s-t patch  
-  + "Xoffset" and "Yoffset" are the non-normalized frame coordinates of the s-t patch  
-  + "PatchWidth" and "PatchHeight" are the non-normalized width and height of teh s-t patch
-  + "descr" is the array of floats of concatenated descriptors. The size of this array depends on the enabled   descriptor types. All values are from zero to one. The first comment line describes the enabled descriptor types, their order in the array, and the dimension of each descriptor in the array.  
+  + **x** and **y** are the normalized frame coordinates of the spatio-temporal (s-t) patch  
+  + **pts** is the frame number of the s-t patch center  
+  + **StartPTS** and **EndPTS** are the frame numbers of the first and last frames of the s-t patch  
+  + **Xoffset** and **Yoffset** are the non-normalized frame coordinates of the s-t patch  
+  + **PatchWidth** and **PatchHeight** are the non-normalized width and height of teh s-t patch
+  + **descr** is the array of floats of concatenated descriptors. The size of this array depends on the enabled   descriptor types. All values are from zero to one. The first comment line describes the enabled descriptor types, their order in the array, and the dimension of each descriptor in the array.  
      
 After the comments every line corresponds to an extracted descriptor of a patch. All numbers in the output are floating point in text format and are separated by tabs.  
 The standard error contains various debug / diagnostic messages like time measurements and parameters in effect.
