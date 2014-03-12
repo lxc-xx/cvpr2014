@@ -69,7 +69,8 @@ Option | Default | Description
 -o out.h5 | not used by default | specifies the output HDF5 file
 --gmm_k 256 | 256 | specifies the number of GMM components used for FV computation
 --knn 5 | 5 | FV parts corresponding to these many closest GMM centroids will be updated during processing of every input descriptor
---vocab 9-104 hog_K256.vocab --vocab 105-212 hof.vocab --vocab 213-308 mbhx_K256.vocab --vocab 309-404 mbhy_K256.vocab | | specifies descriptor type locations and paths to GMM vocabs
+--vocab 9-104 hog_K256.vocab | | specifies descriptor type location and path to GMM vocabs. This option is mandatory, and several options of this kind are allowed.
+--grid 1x3x2x | | specifies the layout of the s-t grid (**x** cells times **y** cells times **t** cells). This option is mandatory, and several options of this kind are allowed.
 
 
 
