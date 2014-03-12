@@ -1,4 +1,3 @@
-
 Information & Contact
 =====================
 
@@ -24,9 +23,9 @@ Vadim Kantorov at vadim.kantorov@inria.fr or vadim.kantorov@gmail.com
 Description and usage
 =====================
 
-We release two tools in this repository.
+We release two tools in this repository. The first is a motion feature extractor based on motion vectors from video compression ("motion_descriptors") information. The second is a fast Fisher vector computation tool ("fv_fast") that uses vector SSE2 CPU instructions.
 
-### Extracting motion descriptors using motion vectors available from video compression ("motion_descriptors").
+### motion_descriptors
 Command-line options:
 
 Option | Default | Description
@@ -53,7 +52,7 @@ The output format:
 After the comments every line corresponds to an extracted descriptor of a patch. All numbers in the output are floating point in text format and are separated by tabs.  
 The standard error contains various debug / diagnostic messages like time measurements and parameters in effect.
 
-### Fast Fisher vector / VLAD computation using SSE2 vector CPU nstructions ("fv_fast")
+### fv_fast
 
 Command-line options:
 
