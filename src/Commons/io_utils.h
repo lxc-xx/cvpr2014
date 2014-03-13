@@ -7,10 +7,15 @@ using namespace std;
 #ifndef __IO_UTILS_H__
 #define __IO_UTILS_H__
 
-void AssertFileExists(string file, string comment = "")
+bool FileExists(string file)
 {
 	ifstream f(file.c_str());
-	if(!f.good())
+	return f.good();
+}
+
+void AssertFileExists(string file, string comment = "")
+{
+	if(!FileExists(file))
 		throw std::runtime_error("File (" + comment + ") doesn't exist: '" + file +"'");
 }
 
