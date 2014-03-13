@@ -108,3 +108,6 @@ The yael and hdf5 dependencies are optional (though enabled by default), you can
 > $ make WITH_HDF5=OFF WITH_YAEL=OFF
 
 ### Windows
+To build a tool you have to define %OPENCV_DIR%, %FFMPEG_DIR% and %HDF5_DIR% environment variables. You will also need to have a modern Visual Studio (or Visual C++ Express ). Then navigate to the corresponding directory in **src** and open VS.vcxproj.
+
+The binaries will be placed in the **build** sub-directory.
