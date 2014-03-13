@@ -101,7 +101,10 @@ Dependencies for **motion_descriptors**:
 
 Dependencies for **fv_fast**:
  - opencv (http://opencv.org)
- - yael (http://gforge.inria.fr/projects/yael/)
- - hdf5 (http://www.hdfgroup.org/HDF5/)
+ - yael (http://gforge.inria.fr/projects/yael/) [optional, needed for computing the GMM vocab]
+ - hdf5 (http://www.hdfgroup.org/HDF5/) [optional, needed for saving the output to an HDF5 file]
+
+The yael and hdf5 dependencies are optional (though enabled by default), you can switch them off by using:
+> $ make WITH_HDF5=OFF WITH_YAEL=OFF
 
 ### Windows
