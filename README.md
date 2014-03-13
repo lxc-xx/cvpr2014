@@ -91,7 +91,7 @@ Building from source
 ====================
 
 ### Linux
-To build a tool, make sure you have the dependencies installed and visible to the CC compiler (normally gcc). If the dependencies are installed to a custom path, you may want to adjust CPATH and LIBRARY_PATH environment variables. Then navigate to the correspoding directory in **src** and type:
+Make sure you have the dependencies installed and visible to the CC compiler (normally gcc). If the dependencies are installed to a custom path, you may want to adjust CPATH and LIBRARY_PATH environment variables. Then navigate to the correspoding directory in **src** and type:
 > $ make
 
 The binaries will be placed in the **build** sub-directory.
@@ -109,6 +109,6 @@ The yael and hdf5 dependencies are optional (though enabled by default), you can
 > $ make WITH_HDF5=OFF WITH_YAEL=OFF
 
 ### Windows
-To build a tool you have to define %OPENCV_DIR%, %FFMPEG_DIR% and %HDF5_DIR% environment variables. You can switch off HDF5 in config.h. YAEL and computing GMM vocabs is not supported on Windows. You can either generate your vocabs on Linux or use some other GMM code to compute them. You will also need to have a modern Visual Studio (or Visual C++ Express ). Then navigate to the corresponding directory in **src** and open VS.vcxproj.
+You have to define %OPENCV_DIR%, %FFMPEG_DIR% and %HDF5_DIR% environment variables. You can switch off HDF5 in config.h. YAEL and computing GMM vocabs is not supported on Windows. You can either generate your vocabs on Linux or use some other GMM code to compute them. You will also need to have a modern Visual Studio (or Visual C++ Express ). Then navigate to the corresponding directory in **src** and open VS.vcxproj.
 
 The binaries will be placed in the **build** sub-directory.
