@@ -43,22 +43,22 @@ The output format:
    #x y pts StartPTS EndPTS Xoffset Yoffset PatchWidth PatchHeight descr
 
 
-  + "x" and "y" are the normalized frame coordinates of the spatio-temporal (s-t) patch  
-  + "pts" is the frame number of the s-t patch center  
-  + "StartPTS" and "EndPTS" are the frame numbers of the first and last frames of the s-t patch  
-  + "Xoffset" and "Yoffset" are the non-normalized frame coordinates of the s-t patch  
-  + "PatchWidth" and "PatchHeight" are the non-normalized width and height of teh s-t patch
-  + "descr" is the array of floats of concatenated descriptors. The size of this array depends on the enabled   descriptor types. All values are from zero to one. The first comment line describes the enabled descriptor types, their order in the array, and the dimension of each descriptor in the array.  
+  + **x** and **y** are the normalized frame coordinates of the spatio-temporal (s-t) patch  
+  + **pts** is the frame number of the s-t patch center  
+  + **StartPTS** and **EndPTS** are the frame numbers of the first and last frames of the s-t patch  
+  + **Xoffset** and **Yoffset** are the non-normalized frame coordinates of the s-t patch  
+  + **PatchWidth** and **PatchHeight** are the non-normalized width and height of teh s-t patch
+  + **descr** is the array of floats of concatenated descriptors. The size of this array depends on the enabled   descriptor types. All values are from zero to one. The first comment line describes the enabled descriptor types, their order in the array, and the dimension of each descriptor in the array.  
      
 After the comments every line corresponds to an extracted descriptor of a patch. All numbers in the output are floating point in text format and are separated by tabs.  
 The standard error contains various debug / diagnostic messages like time measurements and parameters in effect.
 
 ##### Examples:
-  - Compute HOG, HOF, MBH and save the descriptors in **descriptors.txt**:
-    > ./motion_descriptors -i video.avi > descriptors.txt
+  - Compute HOG, HOF, MBH and save the descriptors in descriptors.txt:
+    > $ ./motion_descriptors -i video.avi > descriptors.txt
 
-  - Compute only HOF and MBH from the first 500 frames and save the descriptors in **descriptors.txt**:
-    > ./motion_descriptors -i video.avi -hog no -hof yes -mbh yes -f 1-500 > descriptors.txt
+  - Compute only HOF and MBH from the first 500 frames and save the descriptors in descriptors.txt:
+    > $ ./motion_descriptors -i video.avi -hog no -hof yes -mbh yes -f 1-500 > descriptors.txt
 
 ### fv_fast
 The tool accepts descriptors on the standard input and writes Fisher vector (FV) to the standard output or a specified HDF5 file.
@@ -79,24 +79,29 @@ Option | Default | Description
 --grid 1x3x2x | | specifies the layout of the s-t grid (**x** cells times **y** cells times **t** cells). This option is mandatory, and several options of this kind are allowed.
 
 
+##### Examples:
+  - Build GMM vocabulary:
+    > $ cat descriptors.txt | ./fv_fast --buildGmmIndex
 
-
+  - Compute Fisher vector:
+    > $ cat descriptors.txt | ./fv_fast 
 
 Building from source
 ====================
 
 ### Linux
-To build a tool, make sure you have the dependencies installed and visible to the CC compiler (normally g++). If the dependencies are installed to a custom path, you may want to adjust CPATH and LIBRARY_PATH environment variables. Then navigate to the correspoding directory in **src** and type:
+To build a tool, make sure you have the dependencies installed and visible to the CC compiler (normally gcc). If the dependencies are installed to a custom path, you may want to adjust CPATH and LIBRARY_PATH environment variables. Then navigate to the correspoding directory in **src** and type:
 > $ make
 
 The binaries will be placed in the **build** sub-directory.
 
 Dependencies for **motion_descriptors**:
- - ffmpeg
- - opencv
+ - opencv (http://opencv.org)
+ - ffmpeg (http://ffmpeg.org)
 
 Dependencies for **fv_fast**:
- - hdf5
- - opencv
+ - opencv (http://opencv.org)
+ - yael (http://gforge.inria.fr/projects/yael/)
+ - hdf5 (http://www.hdfgroup.org/HDF5/)
 
 ### Windows
