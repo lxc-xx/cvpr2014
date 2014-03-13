@@ -77,6 +77,7 @@ Option | Default | Description
 --knn 5 | 5 | FV parts corresponding to these many closest GMM centroids will be updated during processing of every input descriptor
 --vocab 9-104 hog_K256.vocab | | specifies descriptor type location and path to GMM vocabs. This option is mandatory, and several options of this kind are allowed.
 --grid 1x3x2x | | specifies the layout of the s-t grid (**x** cells times **y** cells times **t** cells). This option is mandatory, and several options of this kind are allowed.
+--buildGmmIndex | | this option will have the GMM vocabs computed and saved to the specified path. No Fisher vector will be computed
 
 
 ##### Examples:
