@@ -9,7 +9,7 @@
 \backcite {Kuehne11}{{1}{1}{section.1}}
 \backcite {Ryoo10}{{1}{1}{section.1}}
 \backcite {Laptev08,Laptev07,Liu11,Niebles10,Rodriguez08,Sadanand12,Wang12}{{1}{2}{section.2}}
-\backcite {Dollar05,Laptev05,Schuldt04}{{2}{2}{section.2}}
+\backcite {Dollar05,Laptev05,Schuldt04}{{1}{2}{section.2}}
 \backcite {Laptev08}{{2}{2}{section.2}}
 \backcite {klaser2008spatio,Scovanner07}{{2}{2}{section.2}}
 \backcite {Dalal06,Wang12}{{2}{2}{section.2}}
@@ -38,11 +38,11 @@
 \backcite {Farneback03}{{2}{3.1}{subsection.3.1}}
 \backcite {Laptev08}{{2}{3.1}{subsection.3.1}}
 \backcite {Wang12}{{2}{3.1}{subsection.3.1}}
+\backcite {Butler12}{{2}{3.1}{subsection.3.1}}
 \backcite {Butler12}{{3}{3}{section.3}}
 \backcite {Butler12}{{3}{1}{figure.1}}
 \backcite {Lucas81}{{3}{1}{figure.1}}
 \backcite {Farneback03}{{3}{1}{figure.1}}
-\backcite {Butler12}{{3}{3.1}{subsection.3.1}}
 \backcite {Laptev08,Wang12}{{3}{3.1}{subsection.3.1}}
 \backcite {Laptev08,Wang12}{{4}{3.2}{subsection.3.2}}
 \backcite {Wang12}{{4}{3.2}{subsection.3.2}}
@@ -66,12 +66,12 @@
 \backcite {Wang12}{{5}{5.1}{subsection.5.1}}
 \backcite {Wang12}{{5}{5.1}{subsection.5.1}}
 \backcite {Wang12}{{5}{5.1}{subsection.5.1}}
+\backcite {Wang12}{{5}{5.1}{subsection.5.1}}
 \backcite {Wang12}{{6}{5}{section.5}}
 \backcite {Wang12}{{6}{5}{section.5}}
 \backcite {Wang12}{{6}{5.1}{subsection.5.1}}
 \backcite {Wang12}{{6}{5.1}{subsection.5.1}}
 \backcite {Wang12}{{6}{2}{table.2}}
-\backcite {Wang12}{{6}{5.1}{subsection.5.1}}
 \backcite {Muja09}{{6}{5.2}{subsection.5.2}}
 \backcite {Perronnin12}{{6}{5.2}{subsection.5.2}}
 \backcite {Jegou10}{{6}{5.2}{subsection.5.2}}

@@ -33,12 +33,10 @@ G.~Farneb\"ack.
 \newblock Two-frame motion estimation based on polynomial expansion.
 \newblock In {\em SCIA}, 2003.
 
-\bibitem{Grauman13}
-K.~Grauman and R.~Fergus.
-\newblock Learning binary hash codes for large-scale image search.
-\newblock In R.~Cipolla, S.~Battiato, and G.~M. Farinella, editors, {\em
-  Machine Learning for Computer Vision}, volume 411 of {\em Studies in
-  Computational Intelligence}, pages 49--87. Springer Berlin Heidelberg, 2013.
+\bibitem{Liu11}
+{J. Liu, and B. Kuipers, and S. Savarese}.
+\newblock Recognizing human actions by attributes.
+\newblock In {\em CVPR}, 2011.
 
 \bibitem{Jegou10}
 H.~Jegou, M.~Douze, C.~Schmid, and P.~Perez.
@@ -82,11 +80,6 @@ I.~Laptev and P.~P\'erez.
 \newblock Retrieving actions in movies.
 \newblock In {\em ICCV}, 2007.
 
-\bibitem{Liu11}
-J.~Liu, B.~Kuipers, and S.~Savarese.
-\newblock Recognizing human actions by attributes.
-\newblock In {\em CVPR}, 2011.
-
 \bibitem{Lucas81}
 B.~Lucas and T.~Kanade.
 \newblock An iterative image registration technique with an application to
@@ -104,12 +97,6 @@ P.~Matikainen, M.~Hebert, and R.~Sukthankar.
   features.
 \newblock In {\em Workshop on Video-Oriented Object and Event Classification,
   ICCV 2009}, September 2009.
-
-\bibitem{Mensink12}
-T.~Mensink, J.~Verbeek, F.~Perronnin, and G.~Csurka.
-\newblock {Metric Learning for Large Scale Image Classification: Generalizing
-  to New Classes at Near-Zero Cost}.
-\newblock In {\em ECCV}, 2012.
 
 \bibitem{Muja09}
 M.~Muja and D.~Lowe.
@@ -158,7 +145,7 @@ J.~Revaud, M.~Douze, C.~Schmid, and H.~J{\'e}gou.
 
 \bibitem{Rodriguez08}
 M.~Rodriguez, A.~Javed, and M.~Shah.
-\newblock ction mach: a spatio-temporal maximum average correlation height
+\newblock Action mach: a spatio-temporal maximum average correlation height
   filter for action recognition.
 \newblock In {\em CVPR}, 2008.
 
@@ -172,13 +159,8 @@ S.~Sadanand and J.~J. Corso.
 \newblock Action bank: {A} high-level representation of activity in video.
 \newblock In {\em CVPR}, pages 1234--1241, 2012.
 
-\bibitem{Sanchez13}
-J.~Sanchez, F.~Perronnin, T.~Mensink, and J.~Verbeek.
-\newblock {Compressed Fisher Vectors for Large-Scale Image Classification}.
-\newblock Research Report RR-8209, INRIA, 2013.
-
 \bibitem{Schuldt04}
-C.~Sch{\"u}ldt, I.~Laptev, and B.~Caputo.
+{Sch{\"u}ldt, C. and Laptev, I. and Caputo, B.}
 \newblock Recognizing human actions: a local {SVM} approach.
 \newblock In {\em ICPR}, pages III:32--36, 2004.
 
