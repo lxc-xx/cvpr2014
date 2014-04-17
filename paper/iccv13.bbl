@@ -38,6 +38,12 @@ G.~Farneb\"ack.
 \newblock Recognizing human actions by attributes.
 \newblock In {\em CVPR}, 2011.
 
+\bibitem{jain13}
+M.~Jain, H.~J{\'e}gou, and P.~Bouthemy.
+\newblock {Better exploiting motion for better action recognition}.
+\newblock In {\em {CVPR - International Conference on Computer Vision and
+  Pattern Recognition}}, Portland, {\'E}tats-Unis, 2013.
+
 \bibitem{Jegou10}
 H.~Jegou, M.~Douze, C.~Schmid, and P.~Perez.
 \newblock Aggregating local descriptors into a compact image representation.
@@ -180,6 +186,12 @@ H.~Wang, A.~Kl{\"a}ser, C.~Schmid, and C.-L. Liu.
 \newblock {Dense trajectories and motion boundary descriptors for action
   recognition}.
 \newblock {\em IJCV}, 2013.
+
+\bibitem{Wang13}
+H.~Wang and C.~Schmid.
+\newblock {Action Recognition with Improved Trajectories}.
+\newblock In {\em {ICCV 2013 - IEEE International Conference on Computer
+  Vision}}, Sydney, Australia, 2013. IEEE.
 
 \bibitem{Yeffet09}
 L.~Yeffet and L.~Wolf.

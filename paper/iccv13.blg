@@ -16,4 +16,48 @@ Name 1 in "P. Scovanner, and S. Ali, and M. Shah" has a comma at the end for ent
 while executing---line 1116 of file cvpr2014AuthorKit_latex/ieee.bst
 Name 2 in "P. Scovanner, and S. Ali, and M. Shah" has a comma at the end for entry Scovanner07
 while executing---line 1116 of file cvpr2014AuthorKit_latex/ieee.bst
+<<<<<<< HEAD
+=======
+You've used 40 entries,
+            2120 wiz_defined-function locations,
+            1002 strings with 13231 characters,
+and the built_in function-call counts, 14838 in all, are:
+= -- 1407
+> -- 711
+< -- 14
++ -- 282
+- -- 238
+* -- 914
+:= -- 2325
+add.period$ -- 124
+call.type$ -- 40
+change.case$ -- 239
+chr.to.int$ -- 0
+cite$ -- 42
+duplicate$ -- 662
+empty$ -- 1259
+format.name$ -- 238
+if$ -- 3241
+int.to.chr$ -- 0
+int.to.str$ -- 40
+missing$ -- 39
+newline$ -- 202
+num.names$ -- 80
+pop$ -- 348
+preamble$ -- 1
+purify$ -- 199
+quote$ -- 0
+skip$ -- 468
+stack$ -- 0
+substring$ -- 757
+swap$ -- 197
+text.length$ -- 14
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 160
+warning$ -- 2
+while$ -- 128
+width$ -- 42
+write$ -- 425
+>>>>>>> d54cb383173da9cbecb3eb0d504787d8f33ee9e6
 (There were 6 error messages)

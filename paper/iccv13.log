@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.4.15)  15 APR 2014 15:10
+=======
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.3.20)  15 APR 2014 06:09
+>>>>>>> d54cb383173da9cbecb3eb0d504787d8f33ee9e6
 entering extended mode
 **iccv13.tex
 (U:\cvpr2014\paper\iccv13.tex
@@ -811,6 +815,7 @@ Underfull \hbox (badness 1072) in paragraph at lines 485--486
 []\OT1/ptm/m/n/10 In this sec-tion we eval-u-ate the pro-posed de-scrip-tor
  []
 
+<<<<<<< HEAD
 [5 <U:/cvpr2014/paper/figures/dataset_thumb/hwd/class1.jpg> <U:/cvpr2014/paper/
 figures/dataset_thumb/hwd/class2.jpg> <U:/cvpr2014/paper/figures/dataset_thumb/
 hwd/class3.jpg> <U:/cvpr2014/paper/figures/dataset_thumb/hwd/class4.jpg> <U:/cv
@@ -873,25 +878,82 @@ _class6.pdf): PDF inclusion: multiple pdfs with page group included in a single
  page
 >]
 <figures/hollywood2-per-class-barplot-crop.pdf, id=489, 503.40103pt x 278.22092
+=======
+[5 <./figures/dataset_thumb/hwd/class1.jpg> <./figures/dataset_thumb/hwd/class2
+.jpg> <./figures/dataset_thumb/hwd/class3.jpg> <./figures/dataset_thumb/hwd/cla
+ss4.jpg> <./figures/dataset_thumb/hwd/class5.jpg> <./figures/dataset_thumb/hwd/
+class6.jpg> <./figures/dataset_thumb/ucf/crop_class1.pdf> <./figures/dataset_th
+umb/ucf/crop_class2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/ucf/crop_class2
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/ucf/crop_class3.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/ucf/crop_class3
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/ucf/crop_class4.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/ucf/crop_class4
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/ucf/crop_class5.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/ucf/crop_class5
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/ucf/crop_class6.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/ucf/crop_class6
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/uti/crop_class1.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/uti/crop_class1
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/uti/crop_class2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/uti/crop_class2
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/uti/crop_class3.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/uti/crop_class3
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/uti/crop_class4.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/uti/crop_class4
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/uti/crop_class5.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/uti/crop_class5
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./figures/dataset_thumb/uti/crop_class6.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/dataset_thumb/uti/crop_class6
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] [6]
+<figures/hollywood2-per-class-barplot-crop.pdf, id=514, 503.40103pt x 278.22092
+>>>>>>> d54cb383173da9cbecb3eb0d504787d8f33ee9e6
 pt>
 File: figures/hollywood2-per-class-barplot-crop.pdf Graphic file (type pdf)
  <use figures/hollywood2-per-class-barplot-crop.pdf>
 Package pdftex.def Info: figures/hollywood2-per-class-barplot-crop.pdf used on 
-input line 542.
+input line 546.
 (pdftex.def)             Requested size: 213.4209pt x 117.95575pt.
 
+<<<<<<< HEAD
 <figures/hollywood2-flann-fps-map-crop-mod.pdf, id=492, 479.7925pt x 326.21875p
+=======
+<figures/hollywood2-flann-fps-map-crop-mod.pdf, id=517, 479.7925pt x 326.21875p
+>>>>>>> d54cb383173da9cbecb3eb0d504787d8f33ee9e6
 t>
 File: figures/hollywood2-flann-fps-map-crop-mod.pdf Graphic file (type pdf)
  <use figures/hollywood2-flann-fps-map-crop-mod.pdf>
 Package pdftex.def Info: figures/hollywood2-flann-fps-map-crop-mod.pdf used on 
-input line 551.
+input line 555.
 (pdftex.def)             Requested size: 213.4209pt x 145.10963pt.
 
-Overfull \hbox (5.79344pt too wide) in paragraph at lines 663--679
+Overfull \hbox (5.79344pt too wide) in paragraph at lines 667--683
  [] 
  []
 
+<<<<<<< HEAD
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -900,6 +962,9 @@ Underfull \vbox (badness 2951) has occurred while \output is active []
 
 
 (U:\cvpr2014\paper\iccv13.bbl (U:\cvpr2014\paper\iccv13.brf)
+=======
+(./iccv13.bbl (./iccv13.brf)
+>>>>>>> d54cb383173da9cbecb3eb0d504787d8f33ee9e6
 \tf@brf=\write3
  [7 <U:/cvpr2014/paper/figures/hollywood2-per-class-barplot-crop.pdf> <U:/cvpr2
 014/paper/figures/hollywood2-flann-fps-map-crop-mod.pdf
@@ -908,8 +973,9 @@ pdfTeX warning: pdflatex (file U:/cvpr2014/paper/figures/hollywood2-flann-fps-m
 ap-crop-mod.pdf): PDF inclusion: multiple pdfs with page group included in a si
 ngle page
 >])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 877.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 881.
  [8]
+<<<<<<< HEAD
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 877.
  (U:\cvpr2014\paper\iccv13.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 877.
@@ -947,5 +1013,44 @@ Output written on iccv13.pdf (8 pages, 1103902 bytes).
 PDF statistics:
  790 PDF objects out of 1000 (max. 8388607)
  79 named destinations out of 1000 (max. 500000)
+=======
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 881.
+ (./iccv13.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 881.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 881.
+Package rerunfilecheck Info: File `iccv13.brf' has not changed.
+(rerunfilecheck)             Checksum: 02F9187BF09D74BD3A6716B38ED36CA1;4400.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 881.
+ ) 
+Here is how much of TeX's memory you used:
+ 7240 strings out of 493493
+ 108746 string characters out of 3143797
+ 214112 words of memory out of 3000000
+ 10294 multiletter control sequences out of 15000+200000
+ 39647 words of font info for 89 fonts, out of 3000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 37i,20n,39p,1330b,472s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr
+i8a.pfb>
+Output written on iccv13.pdf (8 pages, 1031700 bytes).
+PDF statistics:
+ 808 PDF objects out of 1000 (max. 8388607)
+ 598 compressed objects within 6 object streams
+ 82 named destinations out of 1000 (max. 500000)
+>>>>>>> d54cb383173da9cbecb3eb0d504787d8f33ee9e6
  222 words of extra memory for PDF output out of 10000 (max. 10000000)
 
