@@ -1,6 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: iccv13.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: iccv13.aux
 The style file: cvpr2014AuthorKit_latex/ieee.bst
 Database file #1: shortstrings.bib
 Database file #2: cvpr14.bib
@@ -18,45 +16,4 @@ Name 1 in "P. Scovanner, and S. Ali, and M. Shah" has a comma at the end for ent
 while executing---line 1116 of file cvpr2014AuthorKit_latex/ieee.bst
 Name 2 in "P. Scovanner, and S. Ali, and M. Shah" has a comma at the end for entry Scovanner07
 while executing---line 1116 of file cvpr2014AuthorKit_latex/ieee.bst
-You've used 38 entries,
-            2120 wiz_defined-function locations,
-            991 strings with 12842 characters,
-and the built_in function-call counts, 14247 in all, are:
-= -- 1350
-> -- 680
-< -- 14
-+ -- 270
-- -- 228
-* -- 880
-:= -- 2223
-add.period$ -- 117
-call.type$ -- 38
-change.case$ -- 228
-chr.to.int$ -- 0
-cite$ -- 40
-duplicate$ -- 634
-empty$ -- 1207
-format.name$ -- 228
-if$ -- 3113
-int.to.chr$ -- 0
-int.to.str$ -- 38
-missing$ -- 37
-newline$ -- 192
-num.names$ -- 76
-pop$ -- 330
-preamble$ -- 1
-purify$ -- 190
-quote$ -- 0
-skip$ -- 457
-stack$ -- 0
-substring$ -- 747
-swap$ -- 195
-text.length$ -- 14
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 152
-warning$ -- 2
-while$ -- 124
-width$ -- 40
-write$ -- 402
 (There were 6 error messages)

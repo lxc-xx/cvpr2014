@@ -75,7 +75,7 @@ Local video features provide state-of-the-art performance for action recognition
 \mbox{}\vspace{-1.3cm}\\
 \section{Introduction}
 
-The amount of video has increased dramatically over recent yearsand continues to grow. Striking examples of this development
+The amount of video has increased dramatically over recent years and continues to grow. Striking indications of this development
 include 6000 years of video uploaded to YouTube
 yearly\footnote{\scriptsize
 \url{http://youtube.com/t/press\_statistics}} and millions of
@@ -86,7 +86,7 @@ video is expected to dominate Internet traffic by 91\% in 2014.
 %, or a webcam network installed for public monitoring of Russian elections that has generated over 100 years of video just in one day\footnote{http://www.rostelecom.ru/en/ir/news/d212878}.
 
 The access to information in such gigantic quantities of video
-data requires accurate and efficient methods for automatic video analysis. Much work has been recently devoted to automatic videounderstanding and recognition of human actions in
+data requires accurate and efficient methods for automatic video analysis. Much work has been recently devoted to automatic video understanding and recognition of human actions in
 particular~\cite{Laptev08,Liu11,Niebles10,Sadanand12,Schuldt04,Wang12}.
 While the recognition accuracy has been continuously improved,
 current methods remain limited to relatively small datasets due
@@ -130,7 +130,7 @@ encoding~\cite{Perronnin12} and show improved action recognition while using fas
 We evaluate the speed and accuracy of our approach on
 \mbox{Hollywood-2}~\cite{Marszalek09}, UCF50~\cite{Reddy12},
 HMDB51~\cite{Kuehne11} and UT-Interaction~\cite{Ryoo10}
-benchmarks.
+benchmarks. The implementation of out method is available at http://www.di.ens.fr/willow/research/fastvideofeat/.
 
 The rest of the paper is organized as follows. 
 After reviewing related work in Section~\ref{sec:relatedwork} we address efficient extraction of local video features in
@@ -150,7 +150,7 @@ Among other approaches, bag-of-features (BOF)
 methods~\cite{Dollar05,Laptev05,Schuldt04} have gained
 popularity due to their simplicity, wide range of application
 and high recognition accuracy.
-BOF methods represent actions by collections of local space-timedescriptors aggregated over the video.
+BOF methods represent actions by collections of local space-time descriptors aggregated over the video.
 Several alternative local descriptors have been proposed
 including histograms of flow orientations (HOF)~\cite{Laptev08},
 histograms of 3D gradients
@@ -159,9 +159,9 @@ histograms (MBH)~\cite{Dalal06,Wang12}, shapes of point
 trajectories~\cite{Matikainen09,Messing09,Wang12}, local trinary patterns~\cite{Kliper12,Yeffet09} and others. 
 Mid-level features such as action attributes~\cite{Liu11} and action
 bank~\cite{Sadanand12} have also been explored. Recent
-comprehensive evaluation~\cite{Wang12} suggests that MBH, HOF
+ evaluation~\cite{Wang12} demonstrates that MBH, HOF
 and HOG descriptors sampled along dense point trajectories
-result in great performance improving accuracy of other
+outperform other
 methods on a number of challenging datasets~\cite{Wang12}. 
 We follow~\cite{Wang12} and design a new motion-based local
 descriptor that drastically improves the speed of previous
@@ -200,8 +200,7 @@ also demontrating improved accuracy.
 
 
 Alternative schemes for feature encoding
-%, i.e.~aggregation of local descriptors into global
-representations,
+%, i.e.~aggregation of local descriptors into global representations,
 have been recently evaluated for image classification
 in~\cite{Chatfield11}.
 %While histogram encoding is the most common one, 
@@ -210,13 +209,10 @@ classification. FV encoding has been successfully applied for
 event detection \cite{Revaud13} and we are confirming its
 improved performance and efficiency compared to the
 histogram encoding typically used in action recognition. We also investigate efficient computation of FV using approximate
-nearest neighbor methods for descriptor assignment.
-
-FV encoding enables high recognition accuracy using fast linear
+nearest neighbor methods for descriptor assignment. FV encoding enables high recognition accuracy using fast linear
 classifiers which is a big advantage for large-scale video
 recognition. 
-\subsubsection*{Contributions}
-The contributions of this work are the following. First, we design and thoroughly evaluate an efficient motion descriptor based on the video compression which is 100x faster to compute at a minor degradation of recognition performance compared to the state-of-the-art~\cite{Wang12}. Second, to the best of our knowledge, we are the first to evaluate performance of FV and VLAD for action recognition and find it improving the recognition rates without loss in speed compared to the histogram encoding.
+\noindent\textbf{Contributions} The contributions of this work are the following. First, we design and thoroughly evaluate an efficient motion descriptor based on the video compression which is 100x faster to compute at a minor degradation of recognition performance compared to the state-of-the-art~\cite{Wang12}. Second, to the best of our knowledge, we are the first to evaluate efficiency and classification performance of FV and VLAD for action recognition and find it improving the recognition rates without loss in speed compared to the histogram encoding.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% Efficient video features
@@ -227,7 +223,7 @@ The contributions of this work are the following. First, we design and thoroughl
 Dense Trajectory (DT) features together with MBH and HOF descriptors achieve state-of-the-art accuracy in action recognition~\cite{Wang12} at the cost of high computational requirements.
 %but are limited in speed with the current implementation being able to process one or a few frames per second depending on video resolution. 
 %Currently available implementation of Dense Trajectory (DT) features provided by the authors of~\cite{Wang12} can process approximately one video frame per second. 
-The analysis in~\cite{Wang12} indicates that most of the running time ($52\%$) is spent on the computation of optical flow, while the second most expensive operation ($26\%$) is aggregation of dense flow measurements into histogram descriptors. In this paper we alleviate the expense of both of these steps by (i) re-using motion estimates available from video compression and (ii) constructing descriptors from very sparse motion measurements. %, typically available only on a $16\times16$ pixel grid in standard video compression schemes.
+The analysis in~\cite{Wang12} indicates that most of the running time ($61\%$) is spent on the computation of optical flow, while the second most expensive operation ($36\%$) is aggregation of dense flow measurements into histogram descriptors (discarding the "save features to disk" part). In this paper we alleviate the expense of both of these steps by (i) re-using motion estimates available from video compression and (ii) constructing descriptors from very sparse motion measurements. %, typically available only on a $16\times16$ pixel grid in standard video compression schemes.
 In this section we first analyze the quality of motion vectors available in compressed video representations and then describe our efficient video descriptor.
 
 %This section describes and motivates the design of our video descriptor. We first review existing descriptors and outline their strengths and limitations. We then analyze the properties of the motion field available in compressed video representations and use it to construct a new video descriptor.
@@ -266,7 +262,7 @@ In this section we first analyze the quality of motion vectors available in comp
 \hspace*{-1.1cm}
 \includegraphics[width=1\linewidth]{figures/flow/flowcolorcode_reoriented.jpg}\vspace{.05cm}
 \end{tabular}
-\caption{Comparison of optical flow estimation for a synthetic video sequence ``bandage\_1'' from MPI Sintel dataset~\cite{Butler12}. On the right we compare the ground truth flow with the flow obtained from DivX video compression (MPEG flow) as well as optical flow estimated with Lukas-Kanade~\cite{Lucas81} and Farneb\"ack~\cite{Farneback03} methods. The direction of flow vectors is quantized into eight equally distributed orientations and is color-coded according to the color-wheel on the bottom-right. White color represents no motion. The error of the flow is obtained by the ratio of incorrectly quantized flow values when compared to the ground truth and evaluated over the whole video. While the resolution of MPEG flow is lower compared to other methods, the accuracy of all three methods is compared both quantitatively and qualitatively. We submitted the MPEG flow maps to the Sintel website and obtained competitive error rates EPE all=11.148 and EPE matched=6.706 for the Clean subset that outperform methods [14],[15] reported at http://sintel.is.tue.mpg.de/results. 
+\caption{Comparison of optical flow estimation for a synthetic video sequence ``bandage\_1'' from MPI Sintel dataset~\cite{Butler12}. On the right we compare the ground truth flow with the flow obtained from DivX video compression (MPEG flow) as well as optical flow estimated with Lukas-Kanade~\cite{Lucas81} and Farneb\"ack~\cite{Farneback03} methods. The direction of flow vectors is quantized into eight equally distributed orientations and is color-coded according to the color-wheel on the bottom-right. White color represents no motion. The error of the flow is obtained by the ratio of incorrectly quantized flow values when compared to the ground truth and evaluated over the whole video. While the resolution of MPEG flow is lower compared to other methods, the accuracy of all three methods is comparable both quantitatively and qualitatively.
 %Left, top-to-bottom: ground truth flow; motion vectors from MPEG4 video compression; Lukas-Kanade flow (EPE)~\cite{Lucas81} and Farneb\"ack flow~\cite{Farneback03}. The accuracy of MPEG4, LK and Farneb\"ack motion fields are evaluated using endpoint error~\cite{Otte94}. Right: motion estimates quantized into eight orientation bins and one ``no-motion'' bin. Error indicates the mean disagreement of quantization between ground truth flow and the three flow estimates. Note that the EPE and the quantization error of MPEG4 flow are comparable to the errors of optical flow algorithms. The flow is color-coded according to the color-wheel on the top-right.
 }
 \mbox{}\vspace{-.6cm}\\
@@ -304,16 +300,14 @@ In this section we first analyze the quality of motion vectors available in comp
 
 
 
-\subsection{Motion field from video compression}
+\subsection{Motion fields from video compression}
 Consequent video frames are highly redundant with most of the changes between frames typically originating from the object or camera motion. As the storage of sparse motion vectors is much more efficient compared the storage of pixel values, video compression schemes heavily rely on motion estimation and encode coarse motion information in compressed video representations such as MPEG. This motion field can be accessed at the time of video decompression without additional cost\footnote{Full video decompression may not be required.}. %to access motion information. We currently perform full video decompression due to implementation reasons, however, it could be changed, resulting in additional speed-up of our method in the future.}.
 
 Motion estimation by video encoders is designed to optimize video compression size and may not necessarily correspond to the true motion in the video. To verify the quality of the motion field obtained from video compression (here called MPEG flow), we compare it with the ground truth flow as well as with the output of optical flow methods by Lucas and Kanade~\cite{Lucas81} and Farneb\"ack~\cite{Farneback03}. We choose these two methods since they are deployed in existing implementations of local motion descriptors~\cite{Laptev08} and~\cite{Wang12} which we use in this work for comparison. Figure~\ref{fig:flow1} illustrates the ground truth flow and automatic flow estimates obtained for a synthetic video sequence from the recent MPI Sintel dataset~\cite{Butler12}. For this experiment we quantize flow fields into eight orientation values and one ``no-motion'' bin since this representation of flow is used in this paper for the construction of our fast video descriptor. The details and measurement results are in Figure~\ref{fig:flow1}.
 
 %difference in flow by comparing flow estimates with the ground truth using end point error (EPE), see Figure~\ref{fig:flow1}(left). In Figure~\ref{fig:flow1}(right) we show flow fields discretized into eight orientation bins and one ``no-motion'' bin\footnote{``No-motion'' bin represents motion vectors with the magnitude below $0.4$ pixels.}. Comparing consistency of this quantization is interesting as we use it later for constructing histogram-based local motion descriptors. 
 
-Motion field obtained from MPEG flow has lower resolution compared to other methods. 
-%Meanwhile, we can observe a rather high level of noise for all three flow estimates.
-Meanwhile, the quantitative error of MPEG flow is comparable to the errors of two other OF methods. Qualitatively, the level of noise in MPEG flow and optical flow estimates is comparable both for synthetic and real video examples in Figure~\ref{fig:flow2}. This indicates that the substitute of the slow optical flow used in video descriptors~\cite{Laptev08,Wang12} by the ``virtually free'' MPEG flow may not have large implications on the performance of subsequent recognition steps.
+We have evaluated quantitative performance of MPEG flow in the standard Clean setup of the MPI Sintel benchmark. Despite the fact that motion field obtained from MPEG flow has lower resolution, the obtained results (EPE all=11.148 and EPE matched=6.706) are reasonable and outperform some baseline results. Qualitatively, the level of noise in MPEG flow and optical flow estimates is comparable both for synthetic and real video examples in Figure~\ref{fig:flow2}. This indicates that the substitute of the slow optical flow used in video descriptors~\cite{Laptev08,Wang12} by the ``virtually free'' MPEG flow may not have large implications on the performance of subsequent recognition steps.
 
 
 %094fad32-4801-11e1-8d64-f0def1b7a4f4
@@ -335,10 +329,10 @@ Meanwhile, the quantitative error of MPEG flow is comparable to the errors of tw
 
 
 
-\subsection{Compressed domain video descriptor}
+\subsection{MPEG flow video descriptor}
 \label{sec:CDdescriptor}
 
-We follow the design of previously proposed space-time descriptors~\cite{Laptev08,Wang12} and define our descriptor by histograms of MPEG flow vectors accumulated in a video patch. Each patch is divided into cells as illustrated in Figure~\ref{fig:CDdescriptor} and the normalized histograms from patch cells are concatenated into a descriptor vector. Constrained by the coarse $16\times16$ pixel spatial resolution of MPEG flow, we align descriptor grid cells with positions of motion vectors (red points in Figure~\ref{fig:CDdescriptor}). We also use bilinear interpolation of flow and increase the spatial resolution of the flow field by the factor of two (yellow points in Figure~\ref{fig:CDdescriptor})\footnote{We found interpolation of the flow to be important in our experiments}. 
+We follow the design of previously proposed local space-time descriptors~\cite{Laptev08,Wang12} and define our descriptor by histograms of MPEG flow vectors accumulated in a video patch. Each patch is divided into cells as illustrated in Figure~\ref{fig:CDdescriptor} and the normalized histograms from patch cells are concatenated into a descriptor vector. Constrained by the coarse $16\times16$ pixel spatial resolution of MPEG flow, we align descriptor grid cells with positions of motion vectors (red points in Figure~\ref{fig:CDdescriptor}). We also use bilinear interpolation of flow and increase the spatial resolution of the flow field by the factor of two (yellow points in Figure~\ref{fig:CDdescriptor})\footnote{We found interpolation of the flow to be important in our experiments}. 
 
 Following~\cite{Wang12}, we compute HOF descriptors as histograms of MPEG flow discretized into eight orientation bins and a no-motion bin. For MBHx and MBHy descriptors the spatial gradients of the $v_x$ and $v_y$ components of the flow are similarly discretized into nine orientation bins. %We compute HOF, MBHx, MBHy histograms by accumulating quantized flow values within each cell (see Figure~\ref{fig:CDdescriptor}). 
 The final descriptor is obtained by concatenating histograms from each cell of the $2\times2\times3$ descriptor grid followed by $l_2$-normalization of every temporal slice. HOG descriptors are computed at the same sparse set of points.
@@ -351,7 +345,7 @@ Main computational advantages of our descriptor originate from the elimination o
 \begin{figure}
 \begin{center}
 \includegraphics[width=.7\linewidth]{figures/CD-descriptor2.pdf}
-\caption{Compressed Domain (CD) video descriptor defined at positions of MPEG flow vectors. Each $2\times2\times3$ descriptor cell is accumulated from quantized values of original and interpolated flow vectors indicated by the red and yellow circles respectively.\vspace{-.7cm}}
+\caption{MPEG flow (MF) video descriptor defined at positions of MPEG flow vectors. Each $2\times2\times3$ descriptor cell is accumulated from quantized values of original and interpolated flow vectors indicated by the red and yellow circles respectively.\vspace{-.7cm}}
 \label{fig:CDdescriptor}
 \end{center}
 \end{figure}
@@ -402,9 +396,9 @@ In this paper we investigate two descriptor encoding schemes and propose their c
 
 \subsection{Histogram encoding}
 \label{subsec:histenc}
-Histogram encoding is a common method for representing video by local descriptors. First, for each descriptor type (HOG, HOF, MBHx, MBHy) a vocabulary of $K$ visual words is constructed using the K-means algorithm. Then each descriptor is assigned to one of the visual words. Then the visual word indices are accumulated in a histogram. We follow~\cite{Laptev08} and use ``space-time pyramid'' which allows to capture the rough spatial and temporal layout of action elements. We split videos into six spatio-temporal grids ($x\times y \times t$: 1x1x1, 2x2x1, 1x3x1, 1x1x2, 2x2x2, 1x3x2x, a total of 24 cells). In total we have $C=96\text{ channels} = 4 \text{ descriptor types}\times 24\text{ cells}$, that is one channel per a pair of descriptor type and grid cell. Each cell accumulates its own histogram which is then $l_1$-normalized, thus the total histogram representation is of size $C\cdot K$. We also employ space-time pyramids for the Fisher vector and VLAD encoding methods described in sections \ref{subsec:fvenc} and \ref{subsec:vladenc} respectively.
+Histogram encoding is a common method for representing video by local descriptors. First, for each descriptor type (HOG, HOF, MBHx, MBHy) a vocabulary of $K$ visual words is constructed using K-means. Then each descriptor is assigned to one of the visual words and the visual word indices are accumulated in a histogram. We follow~\cite{Laptev08} and use ``space-time pyramid'' which allows to capture the rough spatial and temporal layout of action elements. We split videos into six spatio-temporal grids ($x\times y \times t$: 1x1x1, 2x2x1, 1x3x1, 1x1x2, 2x2x2, 1x3x2, a total of 24 cells). In total we have $C=96\text{ channels} = 4 \text{ descriptor types}\times 24\text{ cells}$, that is one channel per a pair of descriptor type and grid cell. Each cell accumulates its own histogram which is then $l_1$-normalized, thus the total histogram representation is of size $C\cdot K$. We also employ space-time pyramids for the Fisher vector and VLAD encoding methods described in Sections \ref{subsec:fvenc} and \ref{subsec:vladenc} respectively.
 
-For assignment we experimented with using brute-force nearest neighbors and with using the kd-trees from the FLANN library. The motivation for using kd-trees is the significant improvement in processing speed over the brute-force algorithm (see Subsection~\ref{subsec:descencimprov}). The main parameters for the kd-trees method are the number of trees and the number of tests  made during the descent over the trees. 
+For visual word assignment we experimented with using brute-force nearest neighbors and with using the kd-trees from the FLANN library \cite{Muja09}. The motivation for using kd-trees is the significant improvement in processing speed over the brute-force algorithm (see Subsection~\ref{subsec:descencimprov}). The main parameters for the kd-trees method are the number of trees and the number of tests  made during the descent over trees. 
 
 \subsection{Fisher vector}
 \label{subsec:fvenc}
@@ -416,10 +410,10 @@ $${\textbf u}_k = \frac{1}{N\sqrt{\pi_k}}\sum_{i=1}^{N}q_{ki}\left(\frac{\textbf
 \label{eq:fv_vk}
 \textbf{v}_k=\frac{1}{N\sqrt{2\pi_k}}\sum_{i=1}^{N}q_{ki}\left[\left(\frac{\textbf{x}_i-\boldsymbol\mu_k}{\boldsymbol\sigma_k}\right)^2-\textbf{1}\right]
 \end{equation}
-where $q_{ki}$ is the Gaussian soft assignment of the descriptor $\textbf{x}_i$ to the $k$-th Gaussian, $\pi_k$ are the mixture weights, division and square are term-by-term operations. The \textbf{u} part captures the first-order differences, the \textbf{v} part captures the second-order differences. The final representation of size $C\cdot 2DK$ is given by concatenation of the two parts. As suggested by \cite{Perronnin10}, at the end we take signed square root and $l_2$-normalize the result. We apply the same normalization scheme to VLAD, described next.
+where $q_{ki}$ is the Gaussian soft assignment of the descriptor $\textbf{x}_i$ to the $k$-th Gaussian, $\pi_k$ are the mixture weights, division and square are term-by-term operations. The \textbf{u} part captures the first-order differences, the \textbf{v} part captures the second-order differences. The final representation of size $C\cdot 2DK$ is given by concatenation of the two parts. As suggested in \cite{Perronnin10}, we then take signed square root and $l_2$-normalize the result. We apply the same normalization scheme to VLAD, described next.
 \subsection{VLAD}
 \label{subsec:vladenc}
-The VLAD encoding is the simplified version of Fisher vector which considers only the first-order differences and assigns descriptors to a single mixture component. It was also shown to out-perform pure histogram encoding \cite{Jegou12}. In our variant we keep the soft-assignment factor $q_{ki}$. The VLAD representation of size $C\cdot DK$ is then given by concatenating:$$\textbf{u}_k=\sum_{i : NN\left(\textbf{x}_i\right)=\boldsymbol\mu_k}q_{ki}\left(\textbf{x}_i -\boldsymbol\mu_k\right)$$
+The VLAD encoding is the simplified version of Fisher vector which considers only the first-order differences and assigns descriptors to a single mixture component. It was also shown to out-perform pure histogram encoding \cite{Jegou12}. In our implementation we keep the soft-assignment factor $q_{ki}$. The VLAD representation of size $C\cdot DK$ is then given by concatenating:$$\textbf{u}_k=\sum_{i : NN\left(\textbf{x}_i\right)=\boldsymbol\mu_k}q_{ki}\left(\textbf{x}_i -\boldsymbol\mu_k\right)$$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -439,7 +433,7 @@ The VLAD encoding is the simplified version of Fisher vector which considers onl
 \multirow{3}{*}{} &\multicolumn{2}{c||}{Classification} & \multicolumn{2}{c|}{Speed}\\
                   &\multicolumn{2}{c||}{(mAP)} & \multicolumn{2}{c|}{(fps)}\\
 \cline{2-5}
-& CD (our) & DT~\cite{Wang12} & CD (our) & DT~\cite{Wang12}\\
+& MF (our) & DT~\cite{Wang12} & MF (our) & DT~\cite{Wang12}\\
 \hline\hline
 HOF               & 47.2\% & 52.9\% & 346.8 &  \\\hline
 MBHx              & 49.0\% & 52.0\% & 330.3 &  \\\hline
@@ -474,7 +468,7 @@ HOF+MBHx+MBHy+HOG & 56.2\% & 60.0\% & 168.4 & 1.2 \\\hline
 \end{tabular}
 \mbox{}\vspace{.1cm}\\
 \caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ pixels.
-{\bf Right:} Evaluation of action recognition accuracy in Hollywood2 under the variation of video compression in terms of video codecs and compression bit-rates. The results are reported for CD descriptors in combination with histogram encoding.
+{\bf Right:} Evaluation of action recognition accuracy in Hollywood2 under the variation of video compression in terms of video codecs and compression bit-rates. The results are reported for MF descriptors in combination with histogram encoding.
 \vspace{-.4cm}}
 \label{tab:HWD2}
 \end{center}
@@ -482,7 +476,7 @@ HOF+MBHx+MBHy+HOG & 56.2\% & 60.0\% & 168.4 & 1.2 \\\hline
 
 %In this section we evaluate the proposed descriptor and descriptor encoding schemes on Hollywood2~\cite{Marszalek09} and UCF50~\cite{Reddy12} action recognition benchmarks and compare the speed and the recognition accuracy to the state of the art. We report classification results as mean average precision (mAP) for Hollywood2 and accuracy (Acc.) for UCF50. Processing speed is reported as frame-per-second (fps). We first evaluate the accuracy and the computational cost of proposed descriptor and compare it to the state-of-the-art method~\cite{Wang11}. The second part of the evaluation concerns the speed and accuracy of descriptor encoding.
 
-In this section we evaluate the proposed descriptor and encoding schemes on Hollywood2~\cite{Marszalek09}, UCF50~\cite{Reddy12}, HMDB51~\cite{Kuehne11} and UT-Interaction~\cite{Ryoo10} action recognition benchmarks (see Figure~\ref{fig:datasets}) and compare the speed and accuracy of action recognition  to the state of the art. We report classification results as mean average precision (mAP) for Hollywood2 and mean accuracy (acc) for UCF50, HMDB51 and UT-Interaction datasets. The processing speed is reported in frames-per-second (fps), run at a single-core Intel Xeon E5345 (2.33 GHz). We first evaluate the accuracy and the computational cost of the proposed descriptor and compare results with~\cite{Wang12}. We then evaluate the speed, accuracy and compression of descriptor encoding.
+In this section we evaluate the proposed descriptor and encoding schemes on Hollywood2~\cite{Marszalek09}, UCF50~\cite{Reddy12}, HMDB51~\cite{Kuehne11} and UT-Interaction~\cite{Ryoo10} action recognition benchmarks (see Figure~\ref{fig:datasets}) and compare the speed and accuracy of action recognition  to the state of the art \cite{Wang12}. We follow standard evaluation setups and report mean average precision (mAP) for Hollywood2 and mean accuracy (acc) for UCF50, HMDB51 and UT-Interaction datasets. The processing speed is reported in frames-per-second (fps), run at a single-core Intel Xeon E5345 (2.33 GHz).
 
 %In this series of experiments we adopt the standard bag-of-features action classification pipeline~\cite{Schuldt04} and represent each video clip by a $l_1$-normalized histogram of quantized local features. For each extracted type of descriptor we compute a vocabulary of 4000 visual words using k-means and assign all features to their nearest visual word centroids. Taking into account the space-time pyramid, we end up with $4\times24=96$ channels which we put in the SVM with multi-channel exponential $\chi^2$-kernel~\cite{Zhang07}.
 
@@ -492,12 +486,12 @@ To recognize actions we use SVM with multi-channel exponential $\chi^2$-kernel~\
 \subsection{Descriptor evaluation}
 %To assess the performance of motion information in compressed video representation, we first evaluate the performance of STIP features~\cite{Laptev08} where MPEG flow was obtained from DivX compression of Hollywood2 video samples and upscaled to the original video resolution. Results for one channel HOF descriptors in this setup gives 0.432 mAP compared to 0.458 mAP obtained for the original STIP implementation using Lucas-Kanade optical flow.
 
-Table~\ref{tab:HWD2}(Left) presents results of action recognition using the proposed compressed domain (CD) features %described in Section~\ref{sec:CDdescriptor} 
-and compares performance to Dense Trajectories (DT) baseline~\cite{Wang12}. For the full combination of four descriptors the performance of DT (60.0\%) is approximately four per-cent higher compared to CD features (56.2\%). When comparing the speed of feature extraction for both methods measured on videos with $640\times480$ pixels spatial resolution, our method achieves 168fps which is about 7 times faster than real-time and 140 times faster compared to~\cite{Wang12}. The speed measurements in this experiment include the time of feature computation as well as the time for video reading and decompression. Most of the time for our method is spent on the computation of integral histograms and aggregation of histogram-based video descriptors. In order to  study time saving in detail, we contrast the execution times of our method run with parameters similar to~\cite{Wang12} and with parameters used for all other experiments in this subsection. We save 66\% by avoiding OF computation, ~4\% by sparser descriptor sampling and ~29\% by the aggregation of sparse motion vectors. The run-time of our descriptor is, hence, $<1\%$ compared to~\cite{Wang12}. Reducing the number of descriptor types increases the speed of our method to 347fps (14 times real time) at the cost of 9\% drop in mAP. 
+Table~\ref{tab:HWD2}~(Left) presents results of action recognition using the proposed MPEG flow (MF) features %described in Section~\ref{sec:CDdescriptor} 
+and compares performance to Dense Trajectories (DT) baseline~\cite{Wang12}. For the full combination of four descriptors the performance of DT (60.0\%) is approximately four per-cent higher compared to MF features (56.2\%). When comparing the speed of feature extraction for both methods measured on videos with $640\times480$ pixels spatial resolution, our method achieves 168fps which is about 7 times faster than real-time and 140 times faster compared to~\cite{Wang12}. The speed measurements in this experiment include the time of feature computation as well as the time for video reading and decompression. Most of the time for our method is spent on the computation of integral histograms and aggregation of histogram-based video descriptors. In order to  study time saving in detail, we contrast the execution times of our method run with parameters similar to~\cite{Wang12} and with parameters used for all other experiments in this subsection. We save 66\% by avoiding OF computation, ~4\% by sparser descriptor sampling and ~29\% by the aggregation of sparse motion vectors. The run-time of our descriptor is, hence, $<1\%$ compared to~\cite{Wang12}. Reducing the number of descriptor types increases the speed of our method to 347fps (14 times real time) at the cost of 9\% drop in mAP. 
 
 %We also evaluate how the codec used for encoding and video bitrate affect the classification accuracy on the Hollywood2 dataset. The results are available in Table~\ref{tab:bitrates}. One can note there is no significant difference between motion estimates of x264 and DivX 5.2.1 (both with standard profile). In addition, one can see that accuracy does not drastically decrease w.r.t. bitrate, which allows to encode video with low bitrate if action recognition is the eventual purpose. We used FLANN kd(4) + checks(32) as the quantization method for this experiment.
 
-DT features~\cite{Wang12} are computed along point tracks which is different to our features computed inside the fixed-size video patches. To identify the reason for 4\% mAP drop of our method compared to~\cite{Wang12} we simplify DT features by first approximating free-shape trajectories in DT features by straight lines (DT V*). In the second simplification we remove trajectory information from DT descriptor and compute DT features in fixed axes-parallel cuboids (DT V0). The results of these modifications in the first two lines of Table~\ref{tab:HWD2traj} indicate 1\% drop due to DT V* and 1\% further drop in mAP due to DT V0. Explicitly including the shape of trajectories into the descriptor (last line of Table~\ref{tab:HWD2traj}) does not improve performance significantly. From this experiment we conclude that the shape of trajectories does not contribute to other descriptors significantly. We believe that the difference in accuracy of DT features and our method should be in the denser and more accurate flow estimation deployed by DT. Per-class action classification comparison of CD and DT features is illustrated in Figure~\ref{fig:hwd2-barplot}.
+DT features~\cite{Wang12} are computed along point tracks which is different to our features computed inside the fixed-size video patches. To identify the reason for 4\% mAP drop of our method compared to~\cite{Wang12} we simplify DT features by first approximating free-shape trajectories in DT features by straight lines (DT V*). In the second simplification we remove trajectory information from DT descriptor and compute DT features in fixed axes-parallel cuboids (DT V0). The results of these modifications in the first two lines of Table~\ref{tab:HWD2traj} indicate 1\% drop due to DT V* and 1\% further drop in mAP due to DT V0. Explicitly including the shape of trajectories into the descriptor (last line of Table~\ref{tab:HWD2traj}) does not improve performance significantly. From this experiment we conclude that the shape of trajectories does not contribute to other descriptors significantly. We believe that the difference in accuracy of DT features and our method should be in the denser and more accurate flow estimation deployed by DT. Per-class action classification comparison of MF and DT features is illustrated in Figure~\ref{fig:hwd2-barplot}.
 
 MPEG flow might be influenced by the types and parameters of video codecs. To investigate this aspect, we evaluate the performance of action recognition for two common video codecs (x264 and DivX 5.2.1) under varying video compression bit-rates. Results in Table~\ref{tab:HWD2}(Right) indicate the stable performance of action recognition for different types of video codecs and decreasing video quality corresponding to low values of bit-rates.
 
@@ -521,7 +515,7 @@ HOF+MBHX+MBHY+HOG+TRAJ \cite{Wang12} 	& 60.3\% 	\\\hline
 
 \subsection{Descriptor encoding evaluation}
 \label{subsec:descencimprov}
-While our method achieves high speed descriptor computation, the feature quantization becomes a bottle-neck with nearest-neighbor (NN) quantization performing only at the rate of 10fps when using efficient $l_2$-distance implementation. To improve quantization speed, we experiment with tree-based approximate nearest neighbor (ANN) quantization schemes implemented in FLANN~\cite{Muja09}. The trade-off between computational time and the accuracy of quantization measured on the final recognition task is illustrated in Figure~\ref{fig:hwd2-flann}. Notably, the quantization using four trees and 32 tests in ANN search does not degrade recognition performance and achieves factor $\approx5$ speed-up compared to NN. Further increase of the speed implies approximately linear degradation of classification accuracy. 
+While our method achieves high speed descriptor computation, the feature quantization becomes a bottle-neck with nearest-neighbor (NN) quantization performing only at the rate of 10fps when using efficient $l_2$-distance implementation. To improve quantization speed, we experiment with tree-based approximate nearest neighbor (ANN) quantization schemes implemented in FLANN~\cite{Muja09}. The trade-off between computational time and the accuracy of quantization measured on the final recognition task is illustrated in Figure~\ref{fig:hwd2-flann}. Notably, the quantization using four trees and 32 tests in ANN search does not degrade recognition performance and achieves factor $\approx x5$ speed-up compared to NN. Further increase of the speed implies approximately linear degradation of classification accuracy. 
 
 We next investigated Fisher Vector (FV)~\cite{Perronnin12} and VLAD encodings~\cite{Jegou10} described in Section~\ref{sec:quantization}. 
 %FV and VLAD representations have been shown to achieve high accuracy for image classification tasks~\cite{Chatfield11} and usually require smaller vocabularies compared to histogram encodings.
@@ -531,7 +525,7 @@ To the best of our knowledge, Fisher vector and VLAD encodings have not been app
 
 Table~\ref{tab:ucf_comparison} presents action recognition results for the UCF50 dataset. Similar to the Hollywood-2 dataset, the accuracy of our methods is only a few percent below the state-of-the-art results in~\cite{Wang12} with FV and VLAD encodings providing improvements over the histogram encoding both in speed and accuracy. The overall speed improves the speed of~\cite{Wang12} by two orders of magnitude. Table~\ref{tab:uti_comparison} presents results for the UT-Interaction dataset and compares our method with the efficient action recognition method~\cite{Yu10}. Our method demonstrates better classification accuracy compared to~\cite{Yu10} and improves the speed of~\cite{Yu10} by the factor of $10$.
 
-In Table~\ref{tab:hmdb_comparison} we compare our results on the HMDB dataset to~\cite{Feng13} that investigates the effect of feature sampling on the trade-off between computational efficiency and recognition performance. For the MBH descriptor our method obtains significant improvement both in speed and accuracy, despite the fact that the~\cite{Feng13}'s system was evaluated on Intel i7-3770K (3.50 GHz) which runs 1GHz faster than our Intel Xeon E5345 (2.33 GHz). Both systems were evaluated on single-core machines.
+In Table~\ref{tab:hmdb_comparison} we compare our results on the HMDB dataset to~\cite{Feng13} that investigates the effect of feature sampling on the trade-off between computational efficiency and recognition performance. For the MBH descriptor our method obtains significant improvement both in speed and accuracy, despite the fact that in~\cite{Feng13} the system was evaluated on Intel i7-3770K (3.50 GHz) which runs 1GHz faster than our Intel Xeon E5345 (2.33 GHz). Both systems were evaluated on a single core with no multithreading.
 
 %Our Fisher vector implementation attributes a descriptor only to 5 nearest mixture centroids in $l_2$-sense in contrast to \cite{Jegou12} which fully computes $q_{ki}$ to all mixture centroids in their public implementation in the YAEL library\footnote{\scriptsize \url{https://gforge.inria.fr/projects/yael/}}. To make it faster we compute only the 5 nearest neighbors using kd-trees. Differently from YAEL we explicitly tailor our implementation to efficiently compute Fisher vector for several spatio-temporal grids. In addition, we found that the second order part $\textbf{v}_k$ (\ref{eq:fv_vk}) does not bring improvement, and we don't compute it.
 
@@ -540,7 +534,7 @@ In Table~\ref{tab:hmdb_comparison} we compare our results on the HMDB dataset to
 \begin{figure}
 \begin{center}
 \includegraphics[width=.9\linewidth]{figures/hollywood2-per-class-barplot-crop.pdf}.
-\caption{Per-class action classification results for DT~\cite{Wang12} and our  CD features using HOF+MBHx+MBHy+HOG descriptor combination and histogram encoding on the Hollywood2 benchmark.\vspace{-.1cm}}
+\caption{Per-class action classification results for DT~\cite{Wang12} and our  MF features using HOF+MBHx+MBHy+HOG descriptor combination and histogram encoding on the Hollywood2 benchmark.\vspace{-.1cm}}
 \label{fig:hwd2-barplot}
 \end{center}
 \end{figure}
@@ -595,9 +589,9 @@ In Table~\ref{tab:hmdb_comparison} we compare our results on the HMDB dataset to
 \hline
 		 				&  	 		& Feat.                   	& Quant. 		& Total		\\
 		 				& Acc.  	& (fps)								& (fps)			& (fps)		\\\hline
-CD FLANN(4-32)	& 55.8\%	& \multirow{3}{*}{168.4} 	& 52.4    	& 40.0 	\\ % FPS = 1/(1/168.4 + 1/52.3921)
-CD VLAD(4) 		& 56.7\%	&										& 167.5	& 84.0	\\ % FPS = 1/(1/168.4 + 1/167.537313)
-CD FV(32)			& 58.2\%	&										& 40.9 	& 32.9	\\ % FPS = 1/(1/168.4 + 1/40.8925322)
+MF FLANN(4-32)	& 55.8\%	& \multirow{3}{*}{168.4} 	& 52.4    	& 40.0 	\\ % FPS = 1/(1/168.4 + 1/52.3921)
+MF VLAD(4) 		& 56.7\%	&										& 167.5	& 84.0	\\ % FPS = 1/(1/168.4 + 1/167.537313)
+MF FV(32)			& 58.2\%	&										& 40.9 	& 32.9	\\ % FPS = 1/(1/168.4 + 1/40.8925322)
 \hline
 DT \cite{Wang12}& 59.9\%		& 1.2									& 5.1 		&	1.0	\\\hline % Quant. FPS = 1346 frames / 266.17 secs = 5.0569 FPS; Total = 1/(1/1.2 + 1/5.0569) = 0.9699 FPS
 %\cite{le_at_al}						& 53.3\%		&										&				&\\\hline
@@ -616,9 +610,9 @@ DT \cite{Wang12}& 59.9\%		& 1.2									& 5.1 		&	1.0	\\\hline % Quant. FPS = 13
 \hline
 		 				&  	 	& Feat.                    & Quant. 	& Total	\\
 		 				& Acc.  & (fps)                    & (fps) 	& (fps)	\\\hline
-CD FLANN(4-32)	& 81.6\% & \multirow{3}{*}{591.8}   & 52.4  	& 48.1	\\ % FPS = 1/(1/592 + 1/52.3921)
-CD VLAD(4) 	 	& 80.6\% &                          & 671.4 	& 314.6	\\ % FPS = 1/(1/592 + 1/671.428571)
-CD FV(32)	 		& 82.2\% &                          & 171.3 	& 132.8	\\ % FPS = 1/(1/592 + 1/171.255061)
+MF FLANN(4-32)	& 81.6\% & \multirow{3}{*}{591.8}   & 52.4  	& 48.1	\\ % FPS = 1/(1/592 + 1/52.3921)
+MF VLAD(4) 	 	& 80.6\% &                          & 671.4 	& 314.6	\\ % FPS = 1/(1/592 + 1/671.428571)
+MF FV(32)	 		& 82.2\% &                          & 171.3 	& 132.8	\\ % FPS = 1/(1/592 + 1/171.255061)
 \hline
 DT \cite{Wang12}& 85.6\% & 2.8            	        & 5.1  	& 1.8\\\hline%  Feat extr FPS = 846 frames / 5m; Quant FPS = 846 frames / 166.17 secs = 5.0912 FPS; Total = 1 / (1/2.8 + 1/5.0912) = 1.8065 FPS
 %\cite{Kliper12}		&	72.7\%	&									&			&\\\hline
@@ -665,9 +659,9 @@ PSRM+BOST\cite{Yu10}	& 83.3\%		& 10.0 		\\\hline
 % for KnifeThrowingJackDaggerDemoReel_throw_f_nm_np1_fr_med_2.avi (410 frames, 360x240)
 		 				&  	 		& Feat.                    & Quant. 	& Total	\\
 		 				& Acc.		& (fps)                    & (fps) 	& (fps)	\\\hline
-CD ALL FV(32)		& 46.7\% 	& 455.6                    & 129.7 	& 101.0	\\ % FPS = 410 / 0.9 = 455.5556, 410 / 3.16 = 129.7468, 1 / (1/455.5556 + 1/129.7468) =   101.0
-CD MBH FV(32)		& 45.4\% 	& 683.3                    & 268.0 	& 192.5	\\ % FPS = 410 / 0.6 = 683.3333, 410 / 1.53 = 267.9739, 1 / (1/683.3333 + 1/267.9739) =   192.4883
-CD ALL VLAD(32) & 46.3\%	& 455.6								& 455.6		& 227.8	\\ % FPS = 410 / 0.9 = 455.5556, 1 / (1/455.5556 + 1/455.5556) =   227.7778
+MF ALL FV(32)		& 46.7\% 	& 455.6                    & 129.7 	& 101.0	\\ % FPS = 410 / 0.9 = 455.5556, 410 / 3.16 = 129.7468, 1 / (1/455.5556 + 1/129.7468) =   101.0
+MF MBH FV(32)		& 45.4\% 	& 683.3                    & 268.0 	& 192.5	\\ % FPS = 410 / 0.6 = 683.3333, 410 / 1.53 = 267.9739, 1 / (1/683.3333 + 1/267.9739) =   192.4883
+MF ALL VLAD(32) & 46.3\%	& 455.6								& 455.6		& 227.8	\\ % FPS = 410 / 0.9 = 455.5556, 1 / (1/455.5556 + 1/455.5556) =   227.7778
 \hline
 MBH \cite{Feng13}		& 41.1\% 	& 33.9            	     	& 267.1 & 30.8	\\ % FPS = 1/(1/41.19 + 1/192.4) = 33.9268
 HOG3D \cite{Feng13}	& 33.3\% 	& 49.6            	   	& 290.8 & 42.2	\\ % FPS = 1/(1/71.88 + 1/159.60)= 49.5596
