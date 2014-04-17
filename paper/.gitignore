@@ -1,0 +1,8 @@
+*.text.bak
+*.aux
+*.bbl
+*.blg
+*.brf
+*.log
+*.synctex.gz
+iccv2013.pdf
