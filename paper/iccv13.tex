@@ -162,7 +162,7 @@ bank~\cite{Sadanand12} have also been explored. Recent
  evaluation~\cite{Wang12} demonstrates that MBH, HOF
 and HOG descriptors sampled along dense point trajectories
 outperform other
-methods on a number of challenging datasets~\cite{Wang12}. 
+methods on a number of challenging datasets~\cite{Wang12}. A modern extension of \cite{Wang12} uses motion stabilization and removal of human-related trajectories~\cite{Wang13}.
 We follow~\cite{Wang12} and design a new motion-based local
 descriptor that drastically improves the speed of previous
 methods at the cost of minor decrease in the recognition
@@ -212,7 +212,7 @@ histogram encoding typically used in action recognition. We also investigate eff
 nearest neighbor methods for descriptor assignment. FV encoding enables high recognition accuracy using fast linear
 classifiers which is a big advantage for large-scale video
 recognition. 
-\noindent\textbf{Contributions} The contributions of this work are the following. First, we design and thoroughly evaluate an efficient motion descriptor based on the video compression which is 100x faster to compute at a minor degradation of recognition performance compared to the state-of-the-art~\cite{Wang12}. Second, to the best of our knowledge, we are the first to evaluate efficiency and classification performance of FV and VLAD for action recognition and find it improving the recognition rates without loss in speed compared to the histogram encoding.
+\noindent\textbf{Contributions} The contributions of this work are the following. First, we design and thoroughly evaluate an efficient motion descriptor based on the video compression which is 100x faster to compute at a minor degradation of recognition performance compared to the state-of-the-art~\cite{Wang12}. Second, to the best of our knowledge, we are the first to evaluate both efficiency and classification performance of FV and VLAD for action recognition and find it improving the recognition rates without loss in speed compared to the histogram encoding.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% Efficient video features
@@ -330,7 +330,7 @@ We have evaluated quantitative performance of MPEG flow in the standard Clean se
 
 
 \subsection{MPEG flow video descriptor}
-\label{sec:CDdescriptor}
+\label{sec:CDdescriptor}s
 
 We follow the design of previously proposed local space-time descriptors~\cite{Laptev08,Wang12} and define our descriptor by histograms of MPEG flow vectors accumulated in a video patch. Each patch is divided into cells as illustrated in Figure~\ref{fig:CDdescriptor} and the normalized histograms from patch cells are concatenated into a descriptor vector. Constrained by the coarse $16\times16$ pixel spatial resolution of MPEG flow, we align descriptor grid cells with positions of motion vectors (red points in Figure~\ref{fig:CDdescriptor}). We also use bilinear interpolation of flow and increase the spatial resolution of the flow field by the factor of two (yellow points in Figure~\ref{fig:CDdescriptor})\footnote{We found interpolation of the flow to be important in our experiments}. 
 
@@ -467,11 +467,7 @@ HOF+MBHx+MBHy+HOG & 56.2\% & 60.0\% & 168.4 & 1.2 \\\hline
 %\end{table}
 \end{tabular}
 \mbox{}\vspace{.1cm}\\
-\caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ pixels.
-
-{\bf Right:} Evaluation of action recognition accuracy in Hollywood2 under the variation of video compression in terms of video codecs and compression bit-rates. The results are reported for MF descriptors in combination with FV encoding.
-
-\vspace{-.4cm}}
+\caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ pixels. {\bf Right:} Evaluation of action recognition accuracy in Hollywood2 under the variation of video compression in terms of video codecs and compression bit-rates. The results are reported for MF descriptors in combination with FV encoding.\vspace{-.4cm}}
 \label{tab:HWD2}
 \end{center}
 \end{table*}
@@ -489,7 +485,7 @@ To recognize actions we use SVM with multi-channel exponential $\chi^2$-kernel~\
 %To assess the performance of motion information in compressed video representation, we first evaluate the performance of STIP features~\cite{Laptev08} where MPEG flow was obtained from DivX compression of Hollywood2 video samples and upscaled to the original video resolution. Results for one channel HOF descriptors in this setup gives 0.432 mAP compared to 0.458 mAP obtained for the original STIP implementation using Lucas-Kanade optical flow.
 
 Table~\ref{tab:HWD2}~(Left) presents results of action recognition using the proposed MPEG flow (MF) features %described in Section~\ref{sec:CDdescriptor} 
-and compares performance to Dense Trajectories (DT) baseline~\cite{Wang12}. For the full combination of four descriptors the performance of DT (60.0\%) is approximately four per-cent higher compared to MF features (56.2\%). When comparing the speed of feature extraction for both methods measured on videos with $640\times480$ pixels spatial resolution, our method achieves 168fps which is about 7 times faster than real-time and 140 times faster compared to~\cite{Wang12}. The speed measurements in this experiment include the time of feature computation as well as the time for video reading and decompression. Most of the time for our method is spent on the computation of integral histograms and aggregation of histogram-based video descriptors. In order to  study time saving in detail, we contrast the execution times of our method run with parameters similar to~\cite{Wang12} and with parameters used for all other experiments in this subsection. We save 66\% by avoiding OF computation, ~4\% by sparser descriptor sampling and ~29\% by the aggregation of sparse motion vectors. The run-time of our descriptor is, hence, $<1\%$ compared to~\cite{Wang12}. Reducing the number of descriptor types increases the speed of our method to 347fps (14 times real time) at the cost of 9\% drop in mAP. 
+and compares performance to Dense Trajectories (DT) baseline~\cite{Wang12}. For the full combination of four descriptors the performance of DT (60.0\%) is approximately four per-cent higher compared to MF features (56.2\%). When comparing the speed of feature extraction for both methods measured on videos with $640\times480$ pixels spatial resolution, our method achieves 168fps which is about 7 times faster than real-time and 140 times faster compared to~\cite{Wang12}. The speed measurements in this experiment include the time of feature computation as well as the time for video reading and decompression. Most of the time for our method is spent on the computation of integral histograms and aggregation of histogram-based video descriptors. In order to  study time saving in detail, we contrast the execution times of our method run with parameters similar to~\cite{Wang12} and with parameters used for all other experiments in this subsection. We save 66\% by avoiding OF computation, ~4\% by sparser descriptor sampling and ~29\% by the aggregation of sparse motion vectors. The run-time of our descriptor is, hence, $<1\%$ compared to~\cite{Wang12}. Reducing the number of descriptor types increases the speed of our method to 347fps (14 times real time) at the cost of 4\% drop in mAP. 
 
 %We also evaluate how the codec used for encoding and video bitrate affect the classification accuracy on the Hollywood2 dataset. The results are available in Table~\ref{tab:bitrates}. One can note there is no significant difference between motion estimates of x264 and DivX 5.2.1 (both with standard profile). In addition, one can see that accuracy does not drastically decrease w.r.t. bitrate, which allows to encode video with low bitrate if action recognition is the eventual purpose. We used FLANN kd(4) + checks(32) as the quantization method for this experiment.
 
@@ -506,7 +502,7 @@ HOF+MBHx+MBHy+HOG \cite{Wang12}     	& 60.0\% 	\\\hline
 HOF+MBHX+MBHY+HOG+TRAJ \cite{Wang12} 	& 60.3\% 	\\\hline
 \end{tabular}
 \mbox{}\vspace{.2cm}\\
-\caption{Action classification accuracy for different versions of the dense trajectory features~\cite{Wang12} in combination with histogram encoding}
+\caption{Action classification accuracy on Hollywood2 dataset for different versions of the dense trajectory features~\cite{Wang12} in combination with histogram encoding}
 \label{tab:HWD2traj}
 \end{center}
 \end{table}
@@ -515,7 +511,7 @@ HOF+MBHX+MBHY+HOG+TRAJ \cite{Wang12} 	& 60.3\% 	\\\hline
 
 \subsection{Descriptor encoding evaluation}
 \label{subsec:descencimprov}
-While our method achieves high speed descriptor computation, the feature quantization becomes a bottle-neck with nearest-neighbor (NN) quantization performing only at the rate of 10fps when using efficient $l_2$-distance implementation. To improve quantization speed, we experiment with tree-based approximate nearest neighbor (ANN) quantization schemes implemented in FLANN~\cite{Muja09}. The trade-off between computational time and the accuracy of quantization measured on the final recognition task is illustrated in Figure~\ref{fig:hwd2-flann}. Notably, the quantization using four trees and 32 tests in ANN search does not degrade recognition performance and achieves factor $\approx x5$ speed-up compared to NN. Further increase of the speed implies approximately linear degradation of classification accuracy. 
+While our method achieves high speed descriptor computation, the feature quantization becomes a bottle-neck with nearest-neighbor (NN) quantization performing only at the rate of 10fps when using efficient $l_2$-distance implementation. To improve quantization speed, we experiment with tree-based approximate nearest neighbor (ANN) quantization schemes implemented in FLANN~\cite{Muja09}. The trade-off between computational time and the accuracy of quantization measured on the final recognition task is illustrated in Figure~\ref{fig:hwd2-flann}. Notably, the quantization using four trees and 32 tests in ANN search does not degrade recognition performance and achieves factor $\approx$ 5x speed-up compared to NN. Further increase of the speed implies approximately linear degradation of classification accuracy. 
 
 We next investigated Fisher Vector (FV)~\cite{Perronnin12} and VLAD encodings~\cite{Jegou10} described in Section~\ref{sec:quantization}. 
 %FV and VLAD representations have been shown to achieve high accuracy for image classification tasks~\cite{Chatfield11} and usually require smaller vocabularies compared to histogram encodings.
@@ -531,11 +527,26 @@ In Table~\ref{tab:hmdb_comparison} we compare our results on the HMDB dataset to
 
 %We also experiment with the VLAD representation that we get if we consider only one nearest neighbor during the process described above. With both representations we try different values for the number of tests performed during the descent down the kd-trees.
 
-Recently, the method of \cite{Wang12} has been further improved in \cite{Wang13} using motion stabilization and removal of human-related trajectories. The authors also use Fisher vectors but without space-time binning. The accuracy is significantly higher than in \cite{Wang12} (64.3\% on Hollywood2, 57.2\% on HMDB51 and 91.2\% for UCF50), but the speed is roughly the same. We consider the lower sparsity of optical flow and low number of descriptors to be the main source of decreased accuracy of our method (see Table~\ref{tab:HWD2traj} (V0) compared to Table~\ref{tab:HWD2}). However, in need of very efficient action recognition the trade-off may be worth it. We publish the source code at http://github.com/vadimkantorov/cvpr2014.
+Recently, the method of \cite{Wang12} has been further improved in \cite{Wang13} using motion stabilization and removal of human-related trajectories. The authors also use Fisher vectors but without space-time binning. The accuracy is significantly higher than in \cite{Wang12} ($64.3\%$ on Hollywood2, $57.2\%$ on HMDB51 and $91.2\%$ for UCF50), but the speed is roughly the same. We consider the lower sparsity of optical flow and low number of descriptors per frame to be the main source of decreased accuracy of our method (see Table~\ref{tab:HWD2traj} (V0) compared to Table~\ref{tab:HWD2}). However, in need of very efficient action recognition the trade-off may be worth it. We consider the extensions of~\cite{Wang13} may be implemented in our method as well, but the efficiency will need to be studied.
 
+\begin{table}
+\begin{center}
+\vspace{-1cm}
+\begin{tabular}{|l|c|c|}
+\hline
+& mAP & fps \\\hline
+16  	& 58.3\% & 35.2	\\\hline
+8	& 58.6\% & 24.1	\\\hline
+4     	& 59.2\% & 13.7	\\\hline
+\end{tabular}
+\mbox{}\vspace{.2cm}\\
+\caption{Action classification accuracy on Hollywood2 dataset of MF features in combination with FV encoding versus sampling stride of Farneback flow}
+\label{tab:flow_resample}
+\end{center}
+\end{table}
 
-\subsubsection{Parameter sensitivity}
-MPEG flow might be influenced by the types and parameters of video codecs. To investigate this aspect, we evaluate the performance of action recognition for two common video codecs (x264 and xvid) under varying video compression bit-rates. Results in Table~\ref{tab:HWD2} (Right) indicate the stable performance of action recognition for different types of video codecs and decreasing video quality corresponding to low values of bit-rates.
+\subsubsection*{Parameter sensitivity}
+MPEG flow might be influenced by the types and parameters of video codecs. To investigate this aspect, we evaluate the performance of action recognition for two common video codecs (x264 and xvid) under varying video compression bit-rates. Results in Table~\ref{tab:HWD2} (Right) indicate the stable performance of action recognition for different types of video codecs and decreasing video quality corresponding to low values of bit-rates. We have also evaluated the how flow sampling affects recognition and efficiency (see Table~\ref{tab:flow_resample}, expectedly we found that denser OF leads to more descriptors and improved accuracy at the expense of significantly slower execution time.
 
 \begin{figure}
 \begin{center}
@@ -547,7 +558,7 @@ MPEG flow might be influenced by the types and parameters of video codecs. To in
 
 \begin{figure}
 \begin{center}
-\mbox{}\vspace{-.4cm}\\
+\mbox{}\vspace{-.8cm}\\
 \includegraphics[width=.9\linewidth]{figures/hollywood2-flann-fps-map-crop-mod.pdf}
 \caption{Performance of action recognition and the speed of descriptor encodings in Hollywood2 dataset for different types and parameters of encoding schemes. kd($x$) indicates the number of trees $x$ in the kd-forest used for ANN descriptor assignment. ch($y$) indicates the number of tests $y$ when descending the forest.\vspace{-.4cm}}
 \label{fig:hwd2-flann}
@@ -864,7 +875,7 @@ DT	\cite{Wang12}			& 48.3\%& 3.1								&			& \\ % FPS = 410 / 133.26 = 3.0767
 We present an efficient method for extracting and encoding local descriptors in video. We show that sparse motion vectors from video compression enable accurate action recognition at reduced computational cost. We next apply and evaluate Fisher vector encoding for action recognition and demonstrate the improved speed and accuracy.
 %Our efficient implementation of Fisher vector encoding, taking explicit care of space-time pyramids and selecting mixture components with FLANN, boosts accuracy and runs as fast as conventional histogram encoding with FLANN. 
 %We also address the problem of high dimensionality of Fisher vector signatures, and show drastic improvements in the size of FV using PCA. 
-Out method is fast and enables accurate action recognition using small signatures and linear classifiers.
+Out method is fast and enables accurate action recognition using linear classifiers.
 
 %evaluate applicability of PCA and present the scheme that compresses Fisher vector signatures from $2.5M$ to $1.5K$ ($\sim1000x$) values. Linear kernel is a natural choice for Fisher vectors\cite{Sanchez13} which makes classification instant. Particular variants of our system (like VLAD) run $\sim100$ faster than \cite{Wang11} and open doors to video analysis at larger scale.
 
