@@ -130,7 +130,7 @@ encoding~\cite{Perronnin12} and show improved action recognition while using fas
 We evaluate the speed and accuracy of our approach on
 \mbox{Hollywood-2}~\cite{Marszalek09}, UCF50~\cite{Reddy12},
 HMDB51~\cite{Kuehne11} and UT-Interaction~\cite{Ryoo10}
-benchmarks. The implementation of out method is available at http://www.di.ens.fr/willow/research/fastvideofeat/.
+benchmarks. The implementation of out method is available at~\cite{projectpage}.
 
 The rest of the paper is organized as follows. 
 After reviewing related work in Section~\ref{sec:relatedwork} we address efficient extraction of local video features in
@@ -162,7 +162,8 @@ bank~\cite{Sadanand12} have also been explored. Recent
  evaluation~\cite{Wang12} demonstrates that MBH, HOF
 and HOG descriptors sampled along dense point trajectories
 outperform other
-methods on a number of challenging datasets~\cite{Wang12}. A modern extension of \cite{Wang12} uses motion stabilization and removal of human-related trajectories~\cite{Wang13}.
+methods on a number of challenging datasets~\cite{Wang12}. 
+More recent extensions demonstrate improvements using motion stabilization and person trajectories~\cite{Jain13,Wang13}.
 We follow~\cite{Wang12} and design a new motion-based local
 descriptor that drastically improves the speed of previous
 methods at the cost of minor decrease in the recognition
@@ -211,8 +212,9 @@ improved performance and efficiency compared to the
 histogram encoding typically used in action recognition. We also investigate efficient computation of FV using approximate
 nearest neighbor methods for descriptor assignment. FV encoding enables high recognition accuracy using fast linear
 classifiers which is a big advantage for large-scale video
-recognition. 
-\noindent\textbf{Contributions} The contributions of this work are the following. First, we design and thoroughly evaluate an efficient motion descriptor based on the video compression which is 100x faster to compute at a minor degradation of recognition performance compared to the state-of-the-art~\cite{Wang12}. Second, to the best of our knowledge, we are the first to evaluate both efficiency and classification performance of FV and VLAD for action recognition and find it improving the recognition rates without loss in speed compared to the histogram encoding.
+recognition. \smallskip
+
+\noindent\textbf{Contributions.} The contributions of this work are the following. First, we design and thoroughly evaluate an efficient motion descriptor based on the video compression which is 100x faster to compute at a minor degradation of recognition performance compared to the state-of-the-art~\cite{Wang12}. Second, to the best of our knowledge, we are the first to evaluate both efficiency and classification performance of FV and VLAD for action recognition and find it improving the recognition rates without loss in speed compared to the histogram encoding.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% Efficient video features
@@ -265,7 +267,7 @@ In this section we first analyze the quality of motion vectors available in comp
 \caption{Comparison of optical flow estimation for a synthetic video sequence ``bandage\_1'' from MPI Sintel dataset~\cite{Butler12}. On the right we compare the ground truth flow with the flow obtained from DivX video compression (MPEG flow) as well as optical flow estimated with Lukas-Kanade~\cite{Lucas81} and Farneb\"ack~\cite{Farneback03} methods. The direction of flow vectors is quantized into eight equally distributed orientations and is color-coded according to the color-wheel on the bottom-right. White color represents no motion. The error of the flow is obtained by the ratio of incorrectly quantized flow values when compared to the ground truth and evaluated over the whole video. While the resolution of MPEG flow is lower compared to other methods, the accuracy of all three methods is comparable both quantitatively and qualitatively.
 %Left, top-to-bottom: ground truth flow; motion vectors from MPEG4 video compression; Lukas-Kanade flow (EPE)~\cite{Lucas81} and Farneb\"ack flow~\cite{Farneback03}. The accuracy of MPEG4, LK and Farneb\"ack motion fields are evaluated using endpoint error~\cite{Otte94}. Right: motion estimates quantized into eight orientation bins and one ``no-motion'' bin. Error indicates the mean disagreement of quantization between ground truth flow and the three flow estimates. Note that the EPE and the quantization error of MPEG4 flow are comparable to the errors of optical flow algorithms. The flow is color-coded according to the color-wheel on the top-right.
 }
-\mbox{}\vspace{-.6cm}\\
+%\mbox{}\vspace{-.6cm}\\
 \label{fig:flow1}
 \end{center}
 \end{figure*}
@@ -293,7 +295,7 @@ In this section we first analyze the quality of motion vectors available in comp
 \includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00870_frame013_stip_quant.png} & 
 \includegraphics[width=.23\textwidth]{figures/flow/flow_actioncliptest00870_frame013_traj_quant.jpeg} \vspace{.2cm}\\
 \end{tabular}
-\caption{Qualitative comparison of optical flow in real movie frames using flow estimation methods in Figure~\ref{fig:flow1}. All methods produce noisy flow estimates. Quantized values of MPEG flow are consistent with the quantized output of the two optical flow algorithms. We compare quantized flow values since these are used in descriptor computation by our and other methods.\vspace{-.6cm}}
+\caption{Qualitative comparison of optical flow in real movie frames using flow estimation methods in Figure~\ref{fig:flow1}. All methods produce noisy flow estimates. Quantized values of MPEG flow are consistent with the quantized output of the two optical flow algorithms. We compare quantized flow values since these are used in descriptor computation by our and other methods.\vspace{-.3cm}}
 \label{fig:flow2}
 \end{center}
 \end{figure*}
@@ -307,7 +309,7 @@ Motion estimation by video encoders is designed to optimize video compression si
 
 %difference in flow by comparing flow estimates with the ground truth using end point error (EPE), see Figure~\ref{fig:flow1}(left). In Figure~\ref{fig:flow1}(right) we show flow fields discretized into eight orientation bins and one ``no-motion'' bin\footnote{``No-motion'' bin represents motion vectors with the magnitude below $0.4$ pixels.}. Comparing consistency of this quantization is interesting as we use it later for constructing histogram-based local motion descriptors. 
 
-We have evaluated quantitative performance of MPEG flow in the standard Clean setup of the MPI Sintel benchmark. Despite the fact that motion field obtained from MPEG flow has lower resolution, the obtained results (EPE all=11.148 and EPE matched=6.706) are reasonable and outperform some baseline results. Qualitatively, the level of noise in MPEG flow and optical flow estimates is comparable both for synthetic and real video examples in Figure~\ref{fig:flow2}. This indicates that the substitute of the slow optical flow used in video descriptors~\cite{Laptev08,Wang12} by the ``virtually free'' MPEG flow may not have large implications on the performance of subsequent recognition steps.
+We have evaluated quantitative performance of MPEG flow in the standard Clean setup of the MPI Sintel benchmark. Despite the fact that motion field obtained from MPEG flow has low resolution, the obtained results (EPE all=11.148 and EPE matched=6.706) outperform several methods reported on the MPI Sintel web-page {\small \url{http://sintel.is.tue.mpg.de/results}}. Qualitatively, the level of noise in MPEG flow and optical flow estimates is comparable both for synthetic and real video examples in Figure~\ref{fig:flow2}. This indicates that the substitute of the slow optical flow used in video descriptors~\cite{Laptev08,Wang12} by the ``virtually free'' MPEG flow may not have large implications on the performance of subsequent recognition steps.
 
 
 %094fad32-4801-11e1-8d64-f0def1b7a4f4
@@ -330,7 +332,7 @@ We have evaluated quantitative performance of MPEG flow in the standard Clean se
 
 
 \subsection{MPEG flow video descriptor}
-\label{sec:CDdescriptor}s
+\label{sec:CDdescriptor}
 
 We follow the design of previously proposed local space-time descriptors~\cite{Laptev08,Wang12} and define our descriptor by histograms of MPEG flow vectors accumulated in a video patch. Each patch is divided into cells as illustrated in Figure~\ref{fig:CDdescriptor} and the normalized histograms from patch cells are concatenated into a descriptor vector. Constrained by the coarse $16\times16$ pixel spatial resolution of MPEG flow, we align descriptor grid cells with positions of motion vectors (red points in Figure~\ref{fig:CDdescriptor}). We also use bilinear interpolation of flow and increase the spatial resolution of the flow field by the factor of two (yellow points in Figure~\ref{fig:CDdescriptor})\footnote{We found interpolation of the flow to be important in our experiments}. 
 
@@ -344,8 +346,8 @@ Main computational advantages of our descriptor originate from the elimination o
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=.7\linewidth]{figures/CD-descriptor2.pdf}
-\caption{MPEG flow (MF) video descriptor defined at positions of MPEG flow vectors. Each $2\times2\times3$ descriptor cell is accumulated from quantized values of original and interpolated flow vectors indicated by the red and yellow circles respectively.\vspace{-.7cm}}
+\includegraphics[width=.6\linewidth]{figures/CD-descriptor2.pdf}
+\caption{MPEG flow (MF) video descriptor defined at positions of MPEG flow vectors. Each $2\times2\times3$ descriptor cell is accumulated from quantized values of original and interpolated flow vectors indicated by the red and yellow circles respectively.\vspace{-.6cm}}
 \label{fig:CDdescriptor}
 \end{center}
 \end{figure}
@@ -353,29 +355,53 @@ Main computational advantages of our descriptor originate from the elimination o
 
 \begin{figure*}[!t]
 \begin{center}
-\vspace{-0cm}
+\vspace{-.3cm}
 %\begin{tabular}{cccccc}
 %\includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class1.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class2.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class3.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class4.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class5.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/uti/crop_class6.pdf} \\
 %\includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class1.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class2.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class3.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class4.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class5.pdf} & \includegraphics[scale=0.2]{figures/dataset_thumb/ucf/crop_class6.pdf} \\
 %\includegraphics[height=1cm]{figures/dataset_thumb/hwd/class1.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class2.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class3.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class4.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class5.jpg} & \includegraphics[height=1cm]{figures/dataset_thumb/hwd/class6.jpg} \\
-\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class1.jpg} 
-\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class2.jpg} 
-\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class3.jpg}  
-\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class4.jpg}
-\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class5.jpg}
-\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class6.jpg} \\
-\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class1.pdf}
-\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class2.pdf}
-\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class3.pdf} 
-\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class4.pdf} 
-\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class5.pdf} 
-\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class6.pdf} \\
-\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class1.pdf} 
-\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class2.pdf} 
-\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class3.pdf} 
-\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class4.pdf} 
-\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class5.pdf} 
-\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class6.pdf} \\
+%\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class1.jpg} 
+%\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class2.jpg} 
+%\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class3.jpg}  
+%\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class4.jpg}
+%\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class5.jpg}
+%\includegraphics[height=1.61cm]{figures/dataset_thumb/hwd/class6.jpg} \\
+%\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class1.pdf}
+%\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class2.pdf}
+%\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class3.pdf} 
+%\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class4.pdf} 
+%\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class5.pdf} 
+%\includegraphics[scale=0.305]{figures/dataset_thumb/ucf/crop_class6.pdf} \\
+%\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class1.pdf} 
+%\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class2.pdf} 
+%\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class3.pdf} 
+%\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class4.pdf} 
+%\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class5.pdf} 
+%\includegraphics[scale=0.4]{figures/dataset_thumb/uti/crop_class6.pdf} \\
+\includegraphics[height=1.3cm]{figures/dataset_thumb/hwd/class1.jpg} 
+\includegraphics[height=1.3cm]{figures/dataset_thumb/hwd/class2.jpg} 
+\includegraphics[height=1.3cm]{figures/dataset_thumb/hwd/class3.jpg}  
+\includegraphics[height=1.3cm]{figures/dataset_thumb/hwd/class4.jpg}
+\includegraphics[height=1.3cm]{figures/dataset_thumb/hwd/class5.jpg}
+\includegraphics[height=1.3cm]{figures/dataset_thumb/hwd/class6.jpg} \\
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class1.pdf}
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class2.pdf}
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class3.pdf} 
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class4.pdf} 
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class5.pdf} 
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class6.pdf} \\
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class1.pdf}
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class2.pdf}
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class3.pdf} 
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class4.pdf} 
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class5.pdf} 
+\includegraphics[scale=0.25]{figures/dataset_thumb/ucf/crop_class6.pdf} \\
+\includegraphics[scale=0.3]{figures/dataset_thumb/uti/crop_class1.pdf} 
+\includegraphics[scale=0.3]{figures/dataset_thumb/uti/crop_class2.pdf} 
+\includegraphics[scale=0.3]{figures/dataset_thumb/uti/crop_class3.pdf} 
+\includegraphics[scale=0.3]{figures/dataset_thumb/uti/crop_class4.pdf} 
+\includegraphics[scale=0.3]{figures/dataset_thumb/uti/crop_class5.pdf} 
+\includegraphics[scale=0.3]{figures/dataset_thumb/uti/crop_class6.pdf} \\
 %\end{tabular}
 \smallskip
 \caption{Sample frames from action recognition datasets. Top: Hollywood2~\cite{Marszalek09}, Middle: UCF50~\cite{Reddy12}, Bottom: UT-Interaction~\cite{Ryoo10}.\vspace{-.5cm}}
@@ -467,7 +493,7 @@ HOF+MBHx+MBHy+HOG & 56.2\% & 60.0\% & 168.4 & 1.2 \\\hline
 %\end{table}
 \end{tabular}
 \mbox{}\vspace{.1cm}\\
-\caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ pixels. {\bf Right:} Evaluation of action recognition accuracy in Hollywood2 under the variation of video compression in terms of video codecs and compression bit-rates. The results are reported for MF descriptors in combination with FV encoding.\vspace{-.4cm}}
+\caption{{\bf Left:} Evaluation of action classification accuracy and the speed of feature computation for Hollywood2 action recognition benchmark. The speed of feature computation is reported for video of spatial resolution $640\times480$ pixels. {\bf Right:} Evaluation of action recognition accuracy in Hollywood2 under the variation of video compression in terms of video codecs and compression bit-rates. The results are reported for MF descriptors in combination with FV encoding.\vspace{-.2cm}}
 \label{tab:HWD2}
 \end{center}
 \end{table*}
@@ -485,11 +511,11 @@ To recognize actions we use SVM with multi-channel exponential $\chi^2$-kernel~\
 %To assess the performance of motion information in compressed video representation, we first evaluate the performance of STIP features~\cite{Laptev08} where MPEG flow was obtained from DivX compression of Hollywood2 video samples and upscaled to the original video resolution. Results for one channel HOF descriptors in this setup gives 0.432 mAP compared to 0.458 mAP obtained for the original STIP implementation using Lucas-Kanade optical flow.
 
 Table~\ref{tab:HWD2}~(Left) presents results of action recognition using the proposed MPEG flow (MF) features %described in Section~\ref{sec:CDdescriptor} 
-and compares performance to Dense Trajectories (DT) baseline~\cite{Wang12}. For the full combination of four descriptors the performance of DT (60.0\%) is approximately four per-cent higher compared to MF features (56.2\%). When comparing the speed of feature extraction for both methods measured on videos with $640\times480$ pixels spatial resolution, our method achieves 168fps which is about 7 times faster than real-time and 140 times faster compared to~\cite{Wang12}. The speed measurements in this experiment include the time of feature computation as well as the time for video reading and decompression. Most of the time for our method is spent on the computation of integral histograms and aggregation of histogram-based video descriptors. In order to  study time saving in detail, we contrast the execution times of our method run with parameters similar to~\cite{Wang12} and with parameters used for all other experiments in this subsection. We save 66\% by avoiding OF computation, ~4\% by sparser descriptor sampling and ~29\% by the aggregation of sparse motion vectors. The run-time of our descriptor is, hence, $<1\%$ compared to~\cite{Wang12}. Reducing the number of descriptor types increases the speed of our method to 347fps (14 times real time) at the cost of 4\% drop in mAP. 
+and compares performance to Dense Trajectories (DT) baseline~\cite{Wang12}. For the full combination of four descriptors the performance of DT ($\sim$60.0\%) is approximately four per-cent higher compared to MF features ($\sim$56.2\%). When comparing the speed of feature extraction for both methods measured on videos with $640\times480$ pixels spatial resolution, our method achieves 168fps which is about 7 times faster than real-time and 140 times faster compared to~\cite{Wang12}. The speed measurements in this experiment include the time of feature computation as well as the time for video reading and decompression. Most of the time for our method is spent on the computation of integral histograms and aggregation of histogram-based video descriptors. In order to  study time saving in detail, we contrast the execution times of our method run with parameters similar to~\cite{Wang12} and with parameters used for all other experiments in this subsection. We save $\sim$66\% by avoiding OF computation, $\sim$4\% by sparser descriptor sampling and $\sim$29\% by the aggregation of sparse motion vectors. The run-time of our descriptor is, hence, $<$1\% compared to~\cite{Wang12}. Reducing the number of descriptor types increases the speed of our method to 347fps (14 times real time) at the cost of $<$4\% drop in mAP. 
 
 %We also evaluate how the codec used for encoding and video bitrate affect the classification accuracy on the Hollywood2 dataset. The results are available in Table~\ref{tab:bitrates}. One can note there is no significant difference between motion estimates of x264 and DivX 5.2.1 (both with standard profile). In addition, one can see that accuracy does not drastically decrease w.r.t. bitrate, which allows to encode video with low bitrate if action recognition is the eventual purpose. We used FLANN kd(4) + checks(32) as the quantization method for this experiment.
 
-DT features~\cite{Wang12} are computed along point tracks which is different to our features computed inside the fixed-size video patches. To identify the reason for 4\% mAP drop of our method compared to~\cite{Wang12} we simplify DT features by first approximating free-shape trajectories in DT features by straight lines (DT V*). In the second simplification we remove trajectory information from DT descriptor and compute DT features in fixed axes-parallel cuboids (DT V0). The results of these modifications in the first two lines of Table~\ref{tab:HWD2traj} indicate 1\% drop due to DT V* and 1\% further drop in mAP due to DT V0. Explicitly including the shape of trajectories into the descriptor (last line of Table~\ref{tab:HWD2traj}) does not improve performance significantly. From this experiment we conclude that the shape of trajectories does not contribute to other descriptors significantly. We believe that the difference in accuracy of DT features and our method should be in the denser and more accurate flow estimation deployed by DT. Per-class action classification comparison of MF and DT features is illustrated in Figure~\ref{fig:hwd2-barplot}.
+DT features~\cite{Wang12} are computed along point tracks which is different to our features computed inside the fixed-size video patches. To identify the reason for $\sim$4\% mAP drop of our method compared to~\cite{Wang12} we simplify DT features by first approximating free-shape trajectories in DT features by straight lines (DT V*). In the second simplification we remove trajectory information from DT descriptor and compute DT features in fixed axes-parallel cuboids (DT V0). The results of these modifications in the first two lines of Table~\ref{tab:HWD2traj} indicate 1\% drop due to DT V* and 1\% further drop in mAP due to DT V0. Explicitly including the shape of trajectories into the descriptor (last line of Table~\ref{tab:HWD2traj}) does not improve performance significantly. From this experiment we conclude that the shape of trajectories does not contribute to other descriptors significantly. We believe that the difference in accuracy of DT features and our method should be in the denser and more accurate flow estimation deployed by DT. Per-class action classification comparison of MF and DT features is illustrated in Figure~\ref{fig:hwd2-barplot}.
 
 \begin{table}
 \begin{center}
@@ -527,26 +553,27 @@ In Table~\ref{tab:hmdb_comparison} we compare our results on the HMDB dataset to
 
 %We also experiment with the VLAD representation that we get if we consider only one nearest neighbor during the process described above. With both representations we try different values for the number of tests performed during the descent down the kd-trees.
 
-Recently, the method of \cite{Wang12} has been further improved in \cite{Wang13} using motion stabilization and removal of human-related trajectories. The authors also use Fisher vectors but without space-time binning. The accuracy is significantly higher than in \cite{Wang12} ($64.3\%$ on Hollywood2, $57.2\%$ on HMDB51 and $91.2\%$ for UCF50), but the speed is roughly the same. We consider the lower sparsity of optical flow and low number of descriptors per frame to be the main source of decreased accuracy of our method (see Table~\ref{tab:HWD2traj} (V0) compared to Table~\ref{tab:HWD2}). However, in need of very efficient action recognition the trade-off may be worth it. We consider the extensions of~\cite{Wang13} may be implemented in our method as well, but the efficiency will need to be studied.
+Recently, the method in \cite{Wang12} has been further improved using motion stabilization~\cite{Jain13,Wang13} and feature extraction from person tracks~\cite{Wang13}. These extensions are complementary to our work and can be used to improve results of our method.
+%The authors also use Fisher vectors but without space-time binning. The accuracy is significantly higher than in \cite{Wang12} ($64.3\%$ on Hollywood2, $57.2\%$ on HMDB51 and $91.2\%$ for UCF50), but the speed is roughly the same. We consider the lower sparsity of optical flow and low number of descriptors per frame to be the main source of decreased accuracy of our method (see Table~\ref{tab:HWD2traj} (V0) compared to Table~\ref{tab:HWD2}). However, in need of very efficient action recognition the trade-off may be worth it. We consider the extensions of~\cite{Wang13} may be implemented in our method as well, but the efficiency will need to be studied.
 
 \begin{table}
 \begin{center}
-\vspace{-1cm}
-\begin{tabular}{|l|c|c|}
+\vspace{-.1cm}
+\begin{tabular}{|r|c|c|}
 \hline
-& mAP & fps \\\hline
+Sampling stride & mAP & fps \\\hline
 16  	& 58.3\% & 35.2	\\\hline
 8	& 58.6\% & 24.1	\\\hline
 4     	& 59.2\% & 13.7	\\\hline
 \end{tabular}
 \mbox{}\vspace{.2cm}\\
-\caption{Action classification accuracy on Hollywood2 dataset of MF features in combination with FV encoding versus sampling stride of Farneback flow}
+\caption{Action classification accuracy on Hollywood2 dataset using sparse sampling of Farneback flow and FV encoding. The speed is affected by the increased computational cost of agggregating motion vectors into local descriptors.\vspace{-.4cm}}
 \label{tab:flow_resample}
 \end{center}
 \end{table}
 
-\subsubsection*{Parameter sensitivity}
-MPEG flow might be influenced by the types and parameters of video codecs. To investigate this aspect, we evaluate the performance of action recognition for two common video codecs (x264 and xvid) under varying video compression bit-rates. Results in Table~\ref{tab:HWD2} (Right) indicate the stable performance of action recognition for different types of video codecs and decreasing video quality corresponding to low values of bit-rates. We have also evaluated the how flow sampling affects recognition and efficiency (see Table~\ref{tab:flow_resample}, expectedly we found that denser OF leads to more descriptors and improved accuracy at the expense of significantly slower execution time.
+\subsection{Parameter sensitivity}
+MPEG flow might be influenced by the types and parameters of video codecs. To investigate this aspect, we evaluate the performance of action recognition for two common video codecs (x264 and xvid) under varying video compression bit-rates. Results in Table~\ref{tab:HWD2} (Right) indicate the stable performance of action recognition for different types of video codecs and decreasing video quality corresponding to low values of bit-rates. We have also evaluated the how flow sampling affects recognition and efficiency. As illustrated in Table~\ref{tab:flow_resample}, the denser OF estimates lead to slight improvements in accuracy by the cost of significantly increased execution time due to higher aggregation cost.
 
 \begin{figure}
 \begin{center}
@@ -558,7 +585,7 @@ MPEG flow might be influenced by the types and parameters of video codecs. To in
 
 \begin{figure}
 \begin{center}
-\mbox{}\vspace{-.8cm}\\
+\mbox{}\vspace{-.4cm}\\
 \includegraphics[width=.9\linewidth]{figures/hollywood2-flann-fps-map-crop-mod.pdf}
 \caption{Performance of action recognition and the speed of descriptor encodings in Hollywood2 dataset for different types and parameters of encoding schemes. kd($x$) indicates the number of trees $x$ in the kd-forest used for ANN descriptor assignment. ch($y$) indicates the number of tests $y$ when descending the forest.\vspace{-.4cm}}
 \label{fig:hwd2-flann}
@@ -875,7 +902,7 @@ DT	\cite{Wang12}			& 48.3\%& 3.1								&			& \\ % FPS = 410 / 133.26 = 3.0767
 We present an efficient method for extracting and encoding local descriptors in video. We show that sparse motion vectors from video compression enable accurate action recognition at reduced computational cost. We next apply and evaluate Fisher vector encoding for action recognition and demonstrate the improved speed and accuracy.
 %Our efficient implementation of Fisher vector encoding, taking explicit care of space-time pyramids and selecting mixture components with FLANN, boosts accuracy and runs as fast as conventional histogram encoding with FLANN. 
 %We also address the problem of high dimensionality of Fisher vector signatures, and show drastic improvements in the size of FV using PCA. 
-Out method is fast and enables accurate action recognition using linear classifiers.
+Our method is fast and enables accurate action recognition using linear classifiers. Implementation of our method is available from~\cite{projectpage}.
 
 %evaluate applicability of PCA and present the scheme that compresses Fisher vector signatures from $2.5M$ to $1.5K$ ($\sim1000x$) values. Linear kernel is a natural choice for Fisher vectors\cite{Sanchez13} which makes classification instant. Particular variants of our system (like VLAD) run $\sim100$ faster than \cite{Wang11} and open doors to video analysis at larger scale.
 
