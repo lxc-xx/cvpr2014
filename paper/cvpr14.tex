@@ -560,26 +560,46 @@ In Table~\ref{tab:hmdb_comparison} we compare our results on the HMDB dataset to
 Recently, the method in \cite{Wang12} has been further improved using motion stabilization~\cite{Jain13,Wang13} and feature extraction from person tracks~\cite{Wang13}. These extensions are complementary to our work and can be used to improve results of our method.
 %The authors also use Fisher vectors but without space-time binning. The accuracy is significantly higher than in \cite{Wang12} ($64.3\%$ on Hollywood2, $57.2\%$ on HMDB51 and $91.2\%$ for UCF50), but the speed is roughly the same. We consider the lower sparsity of optical flow and low number of descriptors per frame to be the main source of decreased accuracy of our method (see Table~\ref{tab:HWD2traj} (V0) compared to Table~\ref{tab:HWD2}). However, in need of very efficient action recognition the trade-off may be worth it. We consider the extensions of~\cite{Wang13} may be implemented in our method as well, but the efficiency will need to be studied.
 
+%\begin{table}
+%\begin{center}
+%\vspace{-.1cm}
+%\begin{tabular}{|r|c|c|}
+%\hline
+%Sampling stride & mAP & fps \\\hline
+%16  	& 58.3\% & 35.2	\\\hline
+%8	& 58.6\% & 24.1	\\\hline
+%4     	& 59.2\% & 13.7	\\\hline
+%\end{tabular}
+%\mbox{}\vspace{.2cm}\\
+%\caption{Action classification accuracy on Hollywood2 dataset using sparse sampling of Farneback flow and FV encoding. The reported speed of feature extraction is affected by the increased computational cost of aggregating motion vectors into local descriptors. Other parameters than OF source were unchanged.\vspace{-.6cm}}
+%\label{tab:flow_resample}
+%\end{center}
+%\end{table}
+
+
 \begin{table}
 \begin{center}
 \vspace{-.1cm}
-\begin{tabular}{|r|c|c|}
-\hline
-Sampling stride & mAP & fps \\\hline
-16  	& 58.3\% & 35.2	\\\hline
-8	& 58.6\% & 24.1	\\\hline
-4     	& 59.2\% & 13.7	\\\hline
+\begin{tabular}{r|c|c|c|c|}
+\cline{2-5}
+& \multicolumn{2}{c|}{Farneback flow} & \multicolumn{2}{c|}{MPEG flow} \\\hline
+\multicolumn{1}{|r|}{Sampling stride} & mAP & fps & mAP & fps \\\hline
+\multicolumn{1}{|r|}{16}  	& 58.3\% & 35.2	& 58.2\% & 168.4\\\hline
+\multicolumn{1}{|r|}{8}   	& 58.6\% & 24.1 & &	\\\hline
+\multicolumn{1}{|r|}{4}     	& 59.2\% & 13.7	& &     \\\hline
 \end{tabular}
 \mbox{}\vspace{.2cm}\\
-\caption{Action classification accuracy on Hollywood2 dataset using sparse sampling of Farneback flow and FV encoding. The speed is affected by the increased computational cost of agggregating motion vectors into local descriptors. Other parameters than OF source were unchanged.\vspace{-.6cm}}
+\caption{Action classification accuracy on Hollywood2 dataset using sparse sampling of Farneback flow and MPEG flow followed by FV feature encoding. The reported speed of feature extraction is affected by the increased computational cost of aggregating motion vectors into local descriptors. \vspace{-.6cm}}
 \label{tab:flow_resample}
 \end{center}
 \end{table}
 
+
+
 \subsection{Parameter sensitivity}
 MPEG flow might be influenced by the types and parameters of video codecs. To investigate this aspect, we evaluate the performance of action recognition for two common video codecs (x264 and xvid) under varying video compression bit-rates. Results in Table~\ref{tab:HWD2} (Right) indicate the stable performance of action recognition for different types of video codecs and decreasing video quality corresponding to low values of bit-rates. 
 
-We have also evaluated the influence of sparse flow sampling on the speed and accuracy of action recognition. In Table~\ref{tab:flow_resample} we illustrate accuracy of our method when using Farneback flow instead of MPEG flow. Denser flow sampling leads to slight improvements in recognition accuracy by the cost of significantly increased computation time.
+We have also evaluated the influence of sparse flow sampling on the speed and accuracy of action recognition. In Table~\ref{tab:flow_resample} we illustrate accuracy of our method when using Farneback flow and MPEG flow. Denser flow sampling (Farneback) leads to slight improvements in recognition accuracy by the cost of significantly increased computation time. Notably, sparse Farneback and MPEG flow show similar recognition performance.
 
 \begin{figure}
 \begin{center}
